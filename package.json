@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/xujj277/X-UI/issues"
   },
-  "homepage": "https://github.com/xujj277/X-UI#readme"
+  "homepage": "https://github.com/xujj277/X-UI#readme",
+  "dependencies": {
+    "vue": "^2.6.10"
+  }
 }
