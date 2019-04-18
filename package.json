@@ -1,0 +1,23 @@
+{
+  "name": "xui",
+  "version": "0.0.1",
+  "description": "这是一个UI组件库",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xujj277/X-UI.git"
+  },
+  "keywords": [
+    "VUE",
+    "UI"
+  ],
+  "author": "xujinjun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xujj277/X-UI/issues"
+  },
+  "homepage": "https://github.com/xujj277/X-UI#readme"
+}
