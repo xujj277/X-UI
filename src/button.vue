@@ -17,13 +17,9 @@ export default {
     iconPosition: {
       type: String,
       default: 'left',
-      validator (value) {
-        if (value !== 'left' && value !== 'right') {
-          return false
-        } else {
-          return true
-        }
-      }
+      validator: function (value) {
+        return !(value !== 'left' && value !== 'right')
+      },
     }
   }
 }
