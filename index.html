@@ -35,13 +35,13 @@
 </head>
 <body>
 <div id="app">
-  <x-button icon="">
+  <x-button icon="" :loading="loading1" @click="loading1 = !loading1">
     按钮
   </x-button>
-  <x-button icon="shezhi" icon-position="left">
+  <x-button icon="shezhi" :loading="loading2" @click="loading2 = !loading2" icon-position="left">
     按钮
   </x-button>
-  <x-button icon="shezhi" icon-position="right">
+  <x-button icon="shezhi" :loading="loading3" @click="loading3 = !loading3" icon-position="right">
     按钮
   </x-button>
   <x-icon name="xiangzuo"></x-icon>
