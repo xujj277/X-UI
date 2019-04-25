@@ -1,6 +1,7 @@
 <template>
   <button class="x-button" :class="{[`icon-${iconPosition}`]: true}">
     <x-icon class="icon" v-if="icon" :name="icon"></x-icon>
+    <x-icon class="loading" name="loading"></x-icon>
     <div class="content">
       <slot></slot>
     </div>
@@ -24,6 +25,14 @@ export default {
 </script>
 
 <style lang="scss">
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
   .x-button {
     font-size: var(--font-size);
     height: var(--button-height);
@@ -60,6 +69,9 @@ export default {
       > .content {
         order: 1;
       }
+    }
+    .loading {
+      animation: spin 2s infinite linear;
     }
   }
 </style>
