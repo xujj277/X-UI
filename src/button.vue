@@ -24,7 +24,7 @@ export default {
       }
     },
     loading: {
-      type: String,
+      type: Boolean,
       default: false
     }
   }

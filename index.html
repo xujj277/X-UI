@@ -38,12 +38,14 @@
   <x-button icon="" :loading="loading1" @click="loading1 = !loading1">
     按钮
   </x-button>
-  <x-button icon="shezhi" :loading="loading2" @click="loading2 = !loading2" icon-position="left">
-    按钮
-  </x-button>
-  <x-button icon="shezhi" :loading="loading3" @click="loading3 = !loading3" icon-position="right">
-    按钮
-  </x-button>
+  <x-button-group>
+    <x-button icon="shezhi" :loading="loading2" @click="loading2 = !loading2" icon-position="left">
+      按钮
+    </x-button>
+    <x-button icon="shezhi" :loading="loading3" @click="loading3 = !loading3" icon-position="right">
+      按钮
+    </x-button>
+  </x-button-group>
   <x-icon name="xiangzuo"></x-icon>
 </div>
 <script src="./src/app.js"></script>
