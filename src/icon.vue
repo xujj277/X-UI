@@ -6,6 +6,7 @@
 
 <script>
   export default {
+    name: 'xIcon',
     props: ['name']
   }
 </script>

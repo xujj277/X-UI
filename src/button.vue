@@ -12,8 +12,13 @@
 </template>
 
 <script>
+  import Icon from './icon'
+
 export default {
   name: 'xButton',
+  components: {
+    'x-icon': Icon
+  },
   props: {
     icon: {},
     iconPosition: {
