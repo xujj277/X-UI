@@ -1,5 +1,5 @@
 <template>
-  <button class="x-button"
+  <button class="x-button xujinjun2"
           :class="{[`icon-${iconPosition}`]: true}"
           @click="$emit('click')"
   >
