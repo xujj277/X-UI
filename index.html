@@ -31,24 +31,36 @@
     body {
       font-size: var(--font-size);
     }
+    .box {
+      margin: 20px;
+    }
   </style>
 </head>
 <body>
 <div id="app">
-  <x-button icon="shezhi" :loading="loading1" @click="loading1 = !loading1" icon-position="left">
-    按钮
-  </x-button>
-  <x-button-group>
-    <x-button icon="shezhi" :loading="loading2" @click="loading2 = !loading2" icon-position="left">
+  <div class="box">
+    <x-input value="张三" disabled></x-input>
+    <x-input value="李四" readonly></x-input>
+    <x-input value="xujinjun"></x-input>
+  </div>
+  <div class="box">
+    <x-input value="xujinjun" error="姓名不能少于两个字"></x-input>
+  </div>
+  <div class="box">
+    <x-button icon="shezhi" :loading="loading1" @click="loading1 = !loading1" icon-position="left">
       按钮
     </x-button>
-    <x-button icon="shezhi" :loading="loading3" @click="loading3 = !loading3" icon-position="right">
-      按钮
-    </x-button>
-  </x-button-group>
-  <x-icon name="shezhi"></x-icon>
+    <x-button-group>
+      <x-button icon="shezhi" :loading="loading2" @click="loading2 = !loading2" icon-position="left">
+        按钮
+      </x-button>
+      <x-button icon="shezhi" :loading="loading3" @click="loading3 = !loading3" icon-position="right">
+        按钮
+      </x-button>
+    </x-button-group>
+    <x-icon name="shezhi"></x-icon>
+  </div>
 </div>
 <script src="./src/app.js"></script>
-<script src="//at.alicdn.com/t/font_1152690_8ialcfnb8r.js"></script>
 </body>
 </html>
