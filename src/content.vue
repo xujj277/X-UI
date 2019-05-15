@@ -1,15 +1,17 @@
 <template>
-  <div class="layout">
+  <div class="content">
     <slot></slot>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'xLayout'
+    name: 'xContent'
   }
 </script>
 
 <style lang="scss" scoped>
-
+  .content {
+    flex-grow: 1;
+  }
 </style>

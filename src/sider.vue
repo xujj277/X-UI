@@ -1,15 +1,17 @@
 <template>
-  <div class="layout">
+  <div class="sider">
     <slot></slot>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'xLayout'
+    name: 'xSider'
   }
 </script>
 
 <style lang="scss" scoped>
+  .sider {
 
+  }
 </style>

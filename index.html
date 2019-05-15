@@ -39,77 +39,31 @@
 <body>
 <style>
   .demo {
-    background: #ddd;
     border: 1px solid #666;
+    min-height: 100px;
+  }
+  .sider {
+    background: #333;
+    width: 200px;
+  }
+  .header {
+    background: #999;
     height: 100px;
+  }
+  .footer {
+    background: #ccc;
+    height: 50px;
   }
 </style>
 <div id="app">
-  <div style="border: 1px solid black">
-    <x-row>
-      <x-col span="24"
-             :narrow-pc="{span: 4}"
-      >
-        <div class="demo"></div>
-      </x-col>
-      <x-col span="22"
-             :narrow-pc="{span: 20}"
-      >
-        <div class="demo"></div>
-      </x-col>
-      <x-col span="24"
-             :narrow-pc="{span: 4}"
-      >
-        <div class="demo"></div>
-      </x-col>
-      <x-col span="22"
-             :narrow-pc="{span: 20}"
-      >
-        <div class="demo"></div>
-      </x-col>
-    </x-row>
-    <x-row gutter="20">
-      <x-col offset="1">2</x-col>
-      <x-col>3</x-col>
-      <x-col>1</x-col>
-    </x-row>
-    <x-row gutter="20">
-      <x-col>1</x-col>
-      <x-col>2</x-col>
-      <x-col>3</x-col>
-      <x-col>4</x-col>
-    </x-row>
-    <x-row gutter="20">
-      <x-col span="6" phone="{span:12}">1</x-col>
-      <x-col span="12" offset="10" phone="{span:12}">2</x-col>
-    </x-row>
-  </div>
-
-  <div class="box">
-    <x-input value="张三" disabled></x-input>
-    <x-input value="李四" readonly></x-input>
-    <x-input value="xujinjun"></x-input>
-  </div>
-  <div class="box">
-    <x-input value="xujinjun" @change="inputChange"></x-input>
-  </div>
-  <div class="box">
-    <x-input value="xujinjun" error="姓名不能少于两个字"></x-input>
-  </div>
-  <div class="box">
-    <x-button icon="shezhi" :loading="loading1" @click="loading1 = !loading1" icon-position="left">
-      按钮
-    </x-button>
-    <x-button-group>
-      <x-button icon="shezhi" :loading="loading2" @click="loading2 = !loading2" icon-position="left">
-        按钮
-      </x-button>
-      <x-button icon="shezhi" :loading="loading3" @click="loading3 = !loading3" icon-position="right">
-        按钮
-      </x-button>
-    </x-button-group>
-    <x-icon name="shezhi"></x-icon>
-  </div>
+  <x-layout style="height: 100vh;">
+    <x-header>header</x-header>
+    <x-layout>
+      <x-sider>sider</x-sider>
+      <x-content>content</x-content>
+    </x-layout>
+    <x-footer>footer</x-footer>
+  </x-layout>
 </div>
 <script src="./src/app.js"></script>
 </body>
