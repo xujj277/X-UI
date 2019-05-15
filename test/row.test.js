@@ -6,7 +6,7 @@ import Col from '../src/col'
 Vue.config.productionTip = false
 Vue.config.devtools = false
 
-describe('Button', () => {
+describe('Row', () => {
   it('存在.', () => {
     expect(Row).to.be.ok
   })
