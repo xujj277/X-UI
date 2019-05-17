@@ -9,6 +9,8 @@ import Header from './header'
 import Sider from './sider'
 import Content from './content'
 import Footer from './footer'
+import Toast from './toast'
+import plugin from './plugin'
 
 Vue.component('x-button', Button)
 Vue.component('x-icon', Icon)
@@ -20,6 +22,8 @@ Vue.component('x-header', Header)
 Vue.component('x-sider', Sider)
 Vue.component('x-content', Content)
 Vue.component('x-footer', Footer)
+Vue.component('x-toast', Toast)
+Vue.use(plugin)
 
 new Vue({
   el: '#app',
@@ -28,9 +32,14 @@ new Vue({
     loading2: true,
     loading3: false
   },
+  created () {
+    this.$toast('qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看', {
+      enableHtml: true
+    })
+  },
   methods: {
-    inputChange (e) {
-      console.log(e.target.value)
+    clickToast () {
+      this.$toast('我是 message')
     }
   }
 })

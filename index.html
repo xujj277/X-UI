@@ -38,32 +38,10 @@
 </head>
 <body>
 <style>
-  .demo {
-    border: 1px solid #666;
-    min-height: 100px;
-  }
-  .sider {
-    background: #333;
-    width: 200px;
-  }
-  .header {
-    background: #999;
-    height: 100px;
-  }
-  .footer {
-    background: #ccc;
-    height: 50px;
-  }
+
 </style>
 <div id="app">
-  <x-layout style="height: 100vh;">
-    <x-header>header</x-header>
-    <x-layout>
-      <x-sider>sider</x-sider>
-      <x-content>content</x-content>
-    </x-layout>
-    <x-footer>footer</x-footer>
-  </x-layout>
+  <button @click="clickToast">点我</button>
 </div>
 <script src="./src/app.js"></script>
 </body>
