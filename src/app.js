@@ -33,14 +33,12 @@ new Vue({
     loading3: false
   },
   created () {
-    this.$toast('qwlkejfql;', {
-      position: 'middle',
-      enableHtml: true
-    })
   },
   methods: {
     clickToast () {
-      this.$toast('我是 message')
+      this.$toast(`你的智商余额为${parseInt(Math.random()*100)}`, {
+        position: 'middle'
+      })
     }
   }
 })
