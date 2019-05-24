@@ -33,7 +33,8 @@ new Vue({
     loading3: false
   },
   created () {
-    this.$toast('qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看qwlkejfql;wkej拉少见多怪来看', {
+    this.$toast('qwlkejfql;', {
+      position: 'middle',
       enableHtml: true
     })
   },
