@@ -103,6 +103,7 @@
     border-radius: 4px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.50);
     padding: 0 16px;
+    animation: fade-in 1s;
     .message {
       padding: 8px 0;
     }
@@ -118,6 +119,7 @@
     &.position-top {
       top: 0;
       transform: translate(-50%);
+
     }
     &.position-bottom {
       bottom: 0;
@@ -126,6 +128,17 @@
     &.position-middle {
       top: 50%;
       transform: translate(-50%, -50%);
+    }
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(0%);
     }
   }
 </style>
