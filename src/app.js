@@ -35,9 +35,19 @@ new Vue({
   created () {
   },
   methods: {
-    clickToast () {
+    clickToast1 () {
+      this.$toast(`你的智商余额为${parseInt(Math.random()*100)}`, {
+        position: 'top'
+      })
+    },
+    clickToast2 () {
       this.$toast(`你的智商余额为${parseInt(Math.random()*100)}`, {
         position: 'middle'
+      })
+    },
+    clickToast3 () {
+      this.$toast(`你的智商余额为${parseInt(Math.random()*100)}`, {
+        position: 'bottom'
       })
     }
   }
