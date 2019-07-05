@@ -47,7 +47,8 @@ new Vue({
     },
     clickToast3 () {
       this.$toast(`你的智商余额为${parseInt(Math.random()*100)}`, {
-        position: 'bottom'
+        position: 'bottom',
+        autoClose: 3
       })
     }
   }

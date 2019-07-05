@@ -1,4 +1,5 @@
 const expect = chai.expect
+import { describe } from 'mocha'
 import Vue from 'vue'
 import Col from '../src/col'
 
@@ -31,7 +32,6 @@ describe('Col', () => {
         offset: 1,
       },
     }).$mount(div)
-    console.log(vm.$el.classList)
     expect(vm.$el.classList.contains('offset-1')).to.eq(true)
     div.remove()
     vm.$destroy()
@@ -50,5 +50,4 @@ describe('Col', () => {
     div.remove()
     vm.$destroy()
   })
-
 })
