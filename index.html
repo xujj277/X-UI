@@ -41,9 +41,33 @@
 
 </style>
 <div id="app">
-  <button @click="clickToast1">top</button>
-  <button @click="clickToast2">middle</button>
-  <button @click="clickToast3">bottom</button>
+  <x-tabs :selected.sync="selectedTab" :direction="horizontal">
+    <x-tabs-head>
+      <template slot="actions">
+        <button></button>
+      </template>
+      <x-tabs-item name="woman">
+        美女
+      </x-tabs-item>
+      <x-tabs-item name="finance">
+        财经
+      </x-tabs-item>
+      <x-tabs-item name="sports">
+        体育
+      </x-tabs-item>
+    </x-tabs-head>
+    <x-tabs-body>
+      <x-tabs-pane name="woman">
+        美女相关资讯
+      </x-tabs-pane>
+      <x-tabs-pane name="finance">
+        财经相关资讯
+      </x-tabs-pane>
+      <x-tabs-pane name="sports">
+        体育相关资讯
+      </x-tabs-pane>
+    </x-tabs-body>
+  </x-tabs>
 </div>
 <script src="./src/app.js"></script>
 </body>

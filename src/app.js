@@ -11,6 +11,11 @@ import Content from './content'
 import Footer from './footer'
 import Toast from './toast'
 import plugin from './plugin'
+import Tabs from './tabs'
+import TabsHead from './tabs-head'
+import TabsBody from './tabs-body'
+import TabsPane from './tabs-pane'
+import TabsItem from './tabs-item'
 
 Vue.component('x-button', Button)
 Vue.component('x-icon', Icon)
@@ -23,34 +28,22 @@ Vue.component('x-sider', Sider)
 Vue.component('x-content', Content)
 Vue.component('x-footer', Footer)
 Vue.component('x-toast', Toast)
+Vue.component('x-tabs', Tabs)
+Vue.component('x-tabs-head', TabsHead)
+Vue.component('x-tabs-pane', TabsPane)
+Vue.component('x-tabs-body', TabsBody)
+Vue.component('x-tabs-item', TabsItem)
 Vue.use(plugin)
 
 new Vue({
   el: '#app',
   data: {
-    loading1: false,
-    loading2: true,
-    loading3: false
+    selectedTab: 'sports'
   },
   created () {
   },
   methods: {
-    clickToast1 () {
-      this.$toast(`你的智商余额为${parseInt(Math.random()*100)}`, {
-        position: 'top'
-      })
-    },
-    clickToast2 () {
-      this.$toast(`你的智商余额为${parseInt(Math.random()*100)}`, {
-        position: 'middle'
-      })
-    },
-    clickToast3 () {
-      this.$toast(`你的智商余额为${parseInt(Math.random()*100)}`, {
-        position: 'bottom',
-        autoClose: 3
-      })
-    }
+
   }
 })
 
