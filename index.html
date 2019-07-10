@@ -41,10 +41,10 @@
 
 </style>
 <div id="app">
-  <x-tabs :selected.sync="selectedTab" :direction="horizontal">
+  <x-tabs :selected.sync="selectedTab" direction="horizontal" @update:selected="yyy">
     <x-tabs-head>
       <template slot="actions">
-        <button></button>
+        <button>设置</button>
       </template>
       <x-tabs-item name="woman">
         美女

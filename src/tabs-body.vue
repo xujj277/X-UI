@@ -7,6 +7,7 @@
 <script>
   export default {
     name: 'xTabsBody',
+    inject: ['eventBus'],
   }
 </script>
 
