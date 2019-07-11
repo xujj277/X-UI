@@ -12,7 +12,6 @@
     name: 'xTabsHead',
     inject: ['eventBus'],
     created () {
-      this.$emit('update:selected', '这是this.$emit 出来的数据')
     }
   }
 </script>

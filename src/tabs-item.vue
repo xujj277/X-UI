@@ -50,6 +50,8 @@
     height: 100%;
     display: flex;
     align-items: center;
+    cursor: pointer;
+    border: 1px solid green;
     &.active {
       background: red;
     }
