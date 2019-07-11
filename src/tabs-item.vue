@@ -31,29 +31,30 @@
       }
     },
     created: function () {
-      this.eventBus.$on('update:selected', (name) => {
+      this.eventBus && this.eventBus.$on('update:selected', (name) => {
         this.active = name === this.name;
       })
     },
     methods: {
       xxx() {
-        this.eventBus.$emit('update:selected', this.name)
+        this.eventBus && this.eventBus.$emit('update:selected', this.name, this)
       }
     }
   }
 </script>
 
 <style lang='scss' scoped>
+  $blue: blue;
   .tabs-item {
     flex-shrink: 0;
-    padding: 0 2rem;
+    padding: 0 1em;
+    cursor: pointer;
     height: 100%;
     display: flex;
     align-items: center;
-    cursor: pointer;
-    border: 1px solid green;
     &.active {
-      background: red;
+      color: $blue;
+      font-weight: bold;
     }
   }
 </style>
