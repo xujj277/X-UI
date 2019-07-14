@@ -16,6 +16,7 @@ import TabsHead from './tabs-head'
 import TabsBody from './tabs-body'
 import TabsPane from './tabs-pane'
 import TabsItem from './tabs-item'
+import Popover from './popover'
 
 Vue.component('x-button', Button)
 Vue.component('x-icon', Icon)
@@ -33,6 +34,7 @@ Vue.component('x-tabs-head', TabsHead)
 Vue.component('x-tabs-pane', TabsPane)
 Vue.component('x-tabs-body', TabsBody)
 Vue.component('x-tabs-item', TabsItem)
+Vue.component('x-popover', Popover)
 Vue.use(plugin)
 
 new Vue({
@@ -43,9 +45,7 @@ new Vue({
   created () {
   },
   methods: {
-    yyy(data) {
-      console.log(data)
-    }
+
   }
 })
 

@@ -39,34 +39,20 @@
 <style>
 
 </style>
-<div id="app">
-  <x-tabs :selected.sync="selectedTab" direction="horizontal" @update:selected="yyy">
-    <x-tabs-head>
-      <template slot="actions">
-        <button>设置</button>
-      </template>
-      <x-tabs-item name="woman" disabled>
-        美女
-      </x-tabs-item>
-      <x-tabs-item name="finance">
-        财经
-      </x-tabs-item>
-      <x-tabs-item name="sports">
-        体育
-      </x-tabs-item>
-    </x-tabs-head>
-    <x-tabs-body>
-      <x-tabs-pane name="woman">
-        美女相关资讯
-      </x-tabs-pane>
-      <x-tabs-pane name="finance">
-        财经相关资讯
-      </x-tabs-pane>
-      <x-tabs-pane name="sports">
-        体育相关资讯
-      </x-tabs-pane>
-    </x-tabs-body>
-  </x-tabs>
+<div id="app" style="padding: 100px">
+  <x-popover>
+    <template slot="content">
+      <div>popover内容</div>
+    </template>
+    <button>点我</button>
+  </x-popover>
+
+  <x-popover>
+    <template slot="content">
+      <div>popover内容</div>
+    </template>
+    <button>点我</button>
+  </x-popover>
 </div>
 <script src="./src/app.js"></script>
 </body>
