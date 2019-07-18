@@ -1,6 +1,6 @@
 <template>
-  <div class="popover" @click="xxx">
-    <div class="content-wrapper" v-if="visible">
+  <div class="popover" @click.stop="xxx">
+    <div class="content-wrapper" v-if="visible" @click.stop>
       <slot name="content"></slot>
     </div>
     <slot></slot>
@@ -18,6 +18,18 @@
     methods: {
       xxx() {
         this.visible = !this.visible
+        if (this.visible) {
+          setTimeout(() => {
+            let eventHandler = () => { // 声明一个要去除的监听器
+              this.visible = false
+              console.log('document影藏 popover')
+              document.removeEventListener('click', eventHandler)
+            }
+            document.addEventListener('click', eventHandler)
+          })
+        } else {
+          console.log('vm 影藏 popover')
+        }
       }
     }
   }
