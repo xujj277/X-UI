@@ -40,19 +40,21 @@
 
 </style>
 <div id="app" style="padding-top: 100px; padding-left: 100px; border: 1px solid red;">
-  <x-popover>
-    <template slot="content">
-      <div>popover内容</div>
-    </template>
-    <button>点我</button>
-  </x-popover>
+  <div style="overflow: hidden; border: 1px solid;" @click="yyy">
+    <x-popover>
+      <template slot="content">
+        <div>popover内容</div>
+      </template>
+      <button>点我</button>
+    </x-popover>
 
-  <x-popover>
-    <template slot="content">
-      <div>popover内容</div>
-    </template>
-    <button>点我</button>
-  </x-popover>
+    <x-popover>
+      <template slot="content">
+        <div>popover内容</div>
+      </template>
+      <button>点我</button>
+    </x-popover>
+  </div>
 </div>
 <script src="./src/app.js"></script>
 </body>
