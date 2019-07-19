@@ -1,10 +1,10 @@
 <template>
-  <div class="popover" @click.stop="xxx">
+  <div class="popover" @click="onClick" ref="popover">
     <!--    阻止冒泡 @click.stop-->
     <div ref="contentWrapper" class="content-wrapper" v-if="visible">
       <slot name="content"></slot>
     </div>
-    <span ref="trigger">
+    <span ref="triggerWrapper">
       <slot></slot>
     </span>
   </div>
@@ -19,29 +19,42 @@
       }
     },
     methods: {
-      xxx() {
-        this.visible = !this.visible
-        if (this.visible) {
-          this.$nextTick(() => {
-            document.body.appendChild(this.$refs.contentWrapper)
-            let {width, height, top, left} = this.$refs.trigger.getBoundingClientRect()
-            console.log(width, height, top, left)
-            this.$refs.contentWrapper.style.left = left + window.scrollX + 'px'
-            this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'
-            let eventHandler = () => { // 声明一个要去除的监听器
-              this.visible = false
-              console.log('document影藏 popover')
-              document.removeEventListener('click', eventHandler)
-            }
-            document.addEventListener('click', eventHandler)
-          })
-        } else {
-          console.log('vm 影藏 popover')
+      positionContent () {
+        document.body.appendChild(this.$refs && this.$refs.contentWrapper)
+        let { width, height, top, left } = this.$refs.triggerWrapper.getBoundingClientRect()
+        this.$refs.contentWrapper.style.left = left + window.scrollX + 'px'
+        this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'
+      },
+      eventHandler (e) {
+        if (this.$refs.popover &&
+          (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))
+        ) { return }
+        this.close()
+        console.log('结束监听')
+      },
+      open () {
+        this.visible = true
+        this.$nextTick(() => {
+          this.positionContent()
+          document.addEventListener('click', this.eventHandler)
+        })
+      },
+      close () {
+        this.visible = false
+        document.removeEventListener('click', this.eventHandler)
+      },
+      onClick (event) {
+        if (this.$refs.triggerWrapper.contains(event.target)) {
+          if (this.visible) {
+            this.close()
+          } else {
+            this.open()
+          }
         }
       }
     },
     mounted () {
-      console.log(this.$refs.trigger)
+      console.log(this.$refs.triggerWrapper)
     }
   }
 </script>
