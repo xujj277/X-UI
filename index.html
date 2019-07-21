@@ -41,7 +41,7 @@
 </style>
 <div id="app">
   <div style="overflow: hidden; padding: 50px;" @click="yyy">
-    <x-popover>
+    <x-popover position="bottom">
       <template slot="content">
         <div>popover内容</div>
       </template>
@@ -49,6 +49,18 @@
     </x-popover>
 
     <x-popover>
+      <template slot="content">
+        <div>popover内容</div>
+      </template>
+      <x-button>点我</x-button>
+    </x-popover>
+    <x-popover position="left">
+      <template slot="content">
+        <div>popover内容</div>
+      </template>
+      <x-button>点我</x-button>
+    </x-popover>
+    <x-popover position="right">
       <template slot="content">
         <div>popover内容</div>
       </template>
