@@ -1,10 +1,10 @@
 <template>
-  <div class="popover" @click="onClick" ref="popover">
+  <div class="popover" ref="popover">
     <!--    阻止冒泡 @click.stop-->
     <div ref="contentWrapper" class="content-wrapper" v-if="visible"
       :class="{[`position-${position}`]: true}"
     >
-      <slot name="content"></slot>
+      <slot name="content" :close="close"></slot>
     </div>
     <span ref="triggerWrapper" style="display: inline-block">
       <slot></slot>
@@ -22,11 +22,50 @@
         validator (value) {
           return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
         }
+      },
+      trigger: {
+        type: String,
+        default: 'click',
+        validator (value) {
+          return ['click', 'hover'].indexOf(value) >= 0
+        }
       }
     },
     data () {
       return {
         visible: false
+      }
+    },
+    computed: {
+      openEvent () {
+        if (this.trigger === 'click') {
+          return 'click'
+        } else {
+          return 'mouseenter'
+        }
+      },
+      closeEvent () {
+        if (this.trigger === 'click') {
+          return 'click'
+        } else {
+          return 'mouseleave'
+        }
+      }
+    },
+    mounted() {
+      if (this.trigger === 'click') {
+        this.$refs.popover.addEventListener('click', this.onClick)
+      } else {
+        this.$refs.popover.addEventListener('mouseenter', this.open)
+        this.$refs.popover.addEventListener('mouseleave', this.close)
+      }
+    },
+    destroyed() {
+      if (this.trigger === 'click') {
+        this.$refs.popover.removeEventListener('click', this.onClick)
+      } else {
+        this.$refs.popover.removeEventListener('mouseenter', this.open)
+        this.$refs.popover.removeEventListener('mouseleave', this.close)
       }
     },
     methods: {
@@ -86,9 +125,6 @@
           }
         }
       }
-    },
-    mounted () {
-      console.log(this.$refs.triggerWrapper)
     }
   }
 </script>
@@ -126,10 +162,12 @@
       left: 10px;
     }
     &::before {
+      border-bottom: none;
       border-top-color: $border-color;
       top: 100%;
     }
     &::after {
+      border-bottom: none;
       border-top-color: white;
       top: calc(100% - 2px);
     }
@@ -140,10 +178,12 @@
       left: 10px;
     }
     &::before {
+      border-top: none;
       border-bottom-color: $border-color;
       bottom: 100%;
     }
     &::after {
+      border-top: none;
       border-bottom-color: white;
       bottom: calc(100% - 2px);
     }
@@ -156,10 +196,12 @@
       top: 50%;
     }
     &::before {
+      border-right: none;
       border-left-color: $border-color;
       left: 100%;
     }
     &::after {
+      border-right: none;
       border-left-color: white;
       left: calc(100% - 1px);
     }
@@ -171,10 +213,12 @@
       top: 50%;
     }
     &::before {
+      border-left: none;
       border-right-color: $border-color;
       right: 100%;
     }
     &::after {
+      border-left: none;
       border-right-color: white;
       right: calc(100% - 1px);
     }
