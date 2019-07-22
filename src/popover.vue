@@ -37,20 +37,6 @@
       }
     },
     computed: {
-      openEvent () {
-        if (this.trigger === 'click') {
-          return 'click'
-        } else {
-          return 'mouseenter'
-        }
-      },
-      closeEvent () {
-        if (this.trigger === 'click') {
-          return 'click'
-        } else {
-          return 'mouseleave'
-        }
-      }
     },
     mounted() {
       if (this.trigger === 'click') {
