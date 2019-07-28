@@ -89,7 +89,6 @@
           (this.$refs.contentWrapper === e.target || this.$refs.contentWrapper.contains(e.target))
         ) { return }
         this.close()
-        console.log('结束监听')
       },
       open () {
         this.visible = true

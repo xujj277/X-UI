@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding-top: 16px;">
     <x-button>默认按钮</x-button>
     <x-button icon="shezhi">带 icon 按钮</x-button>
     <x-button :loading="true">加载按钮</x-button>
