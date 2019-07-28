@@ -1,4 +1,5 @@
 module.exports = {
+  base: '/X-UI/',
   title: 'X-UI',
   description: '一个好用的 UI 框架',
   themeConfig: {
@@ -13,7 +14,13 @@ module.exports = {
       {
         title: '组件',
         children: [
-          '/components/button'
+          '/components/button',
+          '/components/grid',
+          '/components/input',
+          '/components/layout',
+          '/components/popover',
+          '/components/tabs',
+          '/components/toast'
         ]
       }
     ],
