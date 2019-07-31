@@ -19,6 +19,7 @@ import TabsItem from './tabs-item'
 import Popover from './popover'
 import Collapse from './collapse'
 import CollapseItem from './collapse-item'
+import Cascader from './Cascader'
 
 Vue.component('x-button', Button)
 Vue.component('x-icon', Icon)
@@ -39,12 +40,45 @@ Vue.component('x-tabs-item', TabsItem)
 Vue.component('x-popover', Popover)
 Vue.component('x-collapse', Collapse)
 Vue.component('x-collapse-item', CollapseItem)
+Vue.component('x-cascader', Cascader)
 Vue.use(plugin)
 
 new Vue({
   el: '#app',
   data: {
-    selectedTab: ['1', '2']
+    source: [{
+      name: '浙江',
+      children: [
+        {
+          name: '杭州',
+          children: [
+            {name: '上城'},
+            {name: '下城'},
+            {name: '江干'}
+          ]
+        },
+        {
+          name: '嘉兴',
+          children: [
+            {name: '南湖区'},
+            {name: '秀洲区'},
+            {name: '嘉善县'}
+          ]
+        }
+      ]
+    },{
+      name: '福建',
+      children: [
+        {
+          name: '厦门市',
+          children: [
+            {name: '思明区'},
+            {name: '海沧区'},
+            {name: '湖里区'}
+          ]
+        }
+      ]
+    }]
   },
   created () {
   },
