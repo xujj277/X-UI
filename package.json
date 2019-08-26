@@ -40,7 +40,16 @@
       "@vue/prettier"
     ],
     "rules": {
-      "no-console": "off"
+      "no-console": "off",
+      "prettier/prettier": [
+        "warn",
+        {
+          "#": "prettier config in here :)",
+          "singleQuote": true,
+          "semi": false,
+          "trailingComma": "none"
+        }
+      ]
     },
     "parserOptions": {
       "parser": "babel-eslint"

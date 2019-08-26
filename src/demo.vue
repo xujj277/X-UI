@@ -1,6 +1,11 @@
 <template>
   <div>
-    <x-cascader :source="source"></x-cascader>
+    {{selected}}
+    <x-cascader :source="source"
+                popover-height="200px"
+                :selected="selected"
+                @update:selected="selected = $event"
+    ></x-cascader>
   </div>
 </template>
 
@@ -15,6 +20,7 @@
     },
     data() {
       return {
+        selected: [],
         source: [{
           name: '浙江',
           children: [
