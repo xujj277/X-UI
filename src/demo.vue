@@ -3,11 +3,13 @@
     {{selected && selected[0] && selected[0].name || '空'}}
     {{selected && selected[1] && selected[1].name || '空'}}
     {{selected && selected[2] && selected[2].name || '空'}}
-    <x-cascader :source="source"
-                popover-height="200px"
-                :selected="selected"
-                @update:selected="selected = $event"
-    ></x-cascader>
+    <div style="padding: 20px">
+      <x-cascader :source="source"
+                  popover-height="200px"
+                  :selected="selected"
+                  @update:selected="selected = $event"
+      ></x-cascader>
+    </div>
   </div>
 </template>
 
