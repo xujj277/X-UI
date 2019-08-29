@@ -76,7 +76,8 @@
   height: 100px;
   .left {
     height: 100%;
-    padding: .3em 0;
+    /*padding: .3em 0;*/
+    overflow: auto;
   }
   .right {
     height: 100%;
@@ -85,7 +86,6 @@
   .label {
     padding: .3em 1em;
     display: flex;
-    justify-content: center;
     align-items: center;
     .icon {
       margin-left: 1em;

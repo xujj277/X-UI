@@ -6,8 +6,7 @@
     <div style="padding: 20px">
       <x-cascader :source="source"
                   popover-height="200px"
-                  :selected="selected"
-                  @update:selected="selected = $event"
+                  :selected.sync="selected"
       ></x-cascader>
     </div>
   </div>
@@ -16,6 +15,13 @@
 <script>
   import Button from './button'
   import Cascader from './cascader'
+  import db from './db'
+
+  function ajax (parent_id = 0) {
+    return db.filter((item) => item.parent_id === parent_id)
+  }
+
+  console.log(ajax())
   export default {
     name: '',
     components: {
@@ -25,50 +31,7 @@
     data() {
       return {
         selected: [],
-        source: [{
-          name: '浙江',
-          children: [
-            {
-              name: '杭州',
-              children: [
-                {name: '上城'},
-                {name: '下城'},
-                {name: '江干'}
-              ]
-            },
-            {
-              name: '嘉兴',
-              children: [
-                {name: '南湖区'},
-                {name: '秀洲区'},
-                {name: '嘉善县'}
-              ]
-            }
-          ]
-        },{
-          name: '福建',
-          children: [
-            {
-              name: '厦门市',
-              children: [
-                {name: '思明区'},
-                {name: '海沧区'},
-                {name: '湖里区'}
-              ]
-            }
-          ]
-        }, {
-          name: '安徽',
-          children: [
-            {
-              name: '合肥',
-              children: [
-                {name: '卢阳'},
-                {name: '珠海'}
-              ]
-            }
-          ]
-        }]
+        source: ajax()
       }
     }
   }
