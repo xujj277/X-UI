@@ -36,7 +36,7 @@
     ```
     npm i --save xujinjun-test-1
     ```
-3. 引入 gulu
+3. 引入 XUI
 
     ```javascript
     import {Button, ButtonGroup, Icon} from 'xujinjun-test-1'
@@ -49,12 +49,6 @@
         'x-icon': Icon
       }
     }
-    ```
-    
-4. 引入 svg symbols
-
-    ```javascript
-      <script src="//at.alicdn.com/t/font_1152690_8ialcfnb8r.js"></script>
     ```
    
 

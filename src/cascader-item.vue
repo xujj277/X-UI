@@ -5,8 +5,8 @@
            v-for="item in items"
            @click="onClickLabel(item)"
       >
-      {{item.name}}
-        <icon class="icon" v-if="item.children" name="shezhi"></icon>
+        <span class="name">{{item.name}}</span>
+        <icon class="icon" v-if="!item.isLeaf" name="shezhi"></icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
@@ -43,13 +43,16 @@
         default: 0
       }
     },
+    updated() {
+      console.log(this.items)
+    },
     computed: {
       rightItems () {
-        let currentSelected = this.selected[this.level]
-        if (currentSelected && currentSelected.children) {
-          return currentSelected.children
-        } else {
-          return null
+        if (this.selected[this.level]) {
+          let selected = this.items.filter(item => item.name === this.selected[this.level].name)
+          if (selected && selected[0].children && selected[0].children.length > 0) {
+            return selected[0].children
+          }
         }
       }
     },
@@ -84,11 +87,19 @@
     border-left: 1px solid $border-color-light;
   }
   .label {
-    padding: .3em 1em;
+    padding: .5em 1em;
     display: flex;
     align-items: center;
+    cursor: pointer;
+    &:hover {
+      background-color: $grey;
+    }
+    .name {
+      margin-right: 1em;
+      user-select: none;
+    }
     .icon {
-      margin-left: 1em;
+      margin-left: auto;
       transform: scale(0.5);
     }
   }

@@ -6,6 +6,7 @@ Vue.config.productionTip = false
 Vue.config.devtools = false
 
 describe('Button', () => {
+  // BDD 行为驱动测试
   it('存在.', () => {
     expect(Button).to.be.ok
   })
@@ -42,7 +43,7 @@ describe('Button', () => {
         icon: 'shezhi',
       },
     }).$mount(div)
-    const icon = vm.$el.querySelector('svg')
+    const icon = vm.$el.querySelectorf('svg')
     expect(getComputedStyle(icon).order).to.eq('1')
     vm.$el.remove()
     vm.$destroy()

@@ -1,4 +1,5 @@
 <template>
+  <!--  用 CSS 解决 iconPosition 的问题 -->
   <button class="x-button xujinjun2"
           :class="{[`icon-${iconPosition}`]: true}"
           @click="$emit('click')"

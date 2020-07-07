@@ -10,7 +10,7 @@ describe('Row', () => {
   it('存在.', () => {
     expect(Row).to.be.ok
   })
-  it('接收 gutter 属性', (done) => {
+  it('接收 gutter 属性', (done) => { // 加 done 是表示异步的
     Vue.component('x-row', Row)
     Vue.component('x-col', Col)
     const div = document.createElement('div')
@@ -30,7 +30,7 @@ describe('Row', () => {
       expect(getComputedStyle(row).marginRight).to.eq('-10px')
       const cols = vm.$el.querySelectorAll('.col')
       expect(getComputedStyle(cols[0]).paddingRight).to.eq('10px')
-      expect(getComputedStyle(cols[0]).paddingLeft).to.eq('10px')
+      expect(getComputedStyle(cols[1]).paddingLeft).to.eq('10px')
       done()
       vm.$el.remove()
       vm.$destroy()

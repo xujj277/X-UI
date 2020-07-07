@@ -55,6 +55,9 @@
       }
     },
     methods: {
+      /**
+       * 定位 popover 位置
+       */
       positionContent () {
         const {contentWrapper, triggerWrapper} = this.$refs
         document.body.appendChild(this.$refs && contentWrapper)
@@ -101,6 +104,10 @@
         this.visible = false
         document.removeEventListener('click', this.eventHandler)
       },
+      /**
+       * 看点击的是不是按钮部分
+       * @param event
+       */
       onClick (event) {
         if (this.$refs.triggerWrapper.contains(event.target)) {
           if (this.visible) {

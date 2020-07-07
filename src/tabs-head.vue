@@ -11,6 +11,7 @@
 <script>
   export default {
     name: 'xTabsHead',
+    // 爷爷给爸爸的 eventBus
     inject: ['eventBus'],
     mounted () {
       this.eventBus.$on('update:selected', (item, vm) => {
@@ -39,7 +40,7 @@
       transition: all .35s;
     }
     > .actions-wrapper {
-      margin-left: auto;
+      margin-left: auto; // 让他在右边
       display: flex;
       align-items: center;
       justify-content: center;

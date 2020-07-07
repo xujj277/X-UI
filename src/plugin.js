@@ -19,7 +19,7 @@ export default {
     }
   }
 }
-// helper
+// helper 动态创建组件，生成一个 toast 组件，然后放到页面上
 function createToast ({Vue, message, propsData, onClose}) {
   let Constructor = Vue.extend(Toast)
   let toast = new Constructor({propsData})

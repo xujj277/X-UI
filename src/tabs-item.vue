@@ -7,6 +7,7 @@
 <script>
   export default {
     name: 'xTabsItem',
+    // 爷爷给孙子的 eventBus
     inject: ['eventBus'],
     data() { // 不需要开发者传值，自身维护
       return {

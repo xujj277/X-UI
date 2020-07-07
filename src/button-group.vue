@@ -37,7 +37,7 @@
     }
     &:hover {
       position: relative;
-      z-index: 1;
+      z-index: 1; // 搭配前面的 margin-left: -1px;
     }
   }
 }

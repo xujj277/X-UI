@@ -50,4 +50,47 @@ describe('Col', () => {
     div.remove()
     vm.$destroy()
   })
+  it('接收 ipad 属性', () => {
+    const div = document.createElement('div')
+    document.body.appendChild(div)
+    const Constructor = Vue.extend(Col)
+    const vm = new Constructor({
+      propsData: {
+        pc: {span: 1, offset: 2},
+      },
+    }).$mount(div)
+    expect(vm.$el.classList.contains('col-ipad-1')).to.eq(true)
+    expect(vm.$el.classList.contains('offset-ipad-2')).to.eq(true)
+    div.remove()
+    vm.$destroy()
+  })
+  it('接收 narrow-pc 属性', () => {
+    const div = document.createElement('div')
+    document.body.appendChild(div)
+    const Constructor = Vue.extend(Col)
+    const vm = new Constructor({
+      propsData: {
+        pc: {span: 1, offset: 2},
+      },
+    }).$mount(div)
+    expect(vm.$el.classList.contains('col-narrow-pc-1')).to.eq(true)
+    expect(vm.$el.classList.contains('offset-narrow-pc-2')).to.eq(true)
+    div.remove()
+    vm.$destroy()
+  })
+
+  it('接收 wide-pc 属性', () => {
+    const div = document.createElement('div')
+    document.body.appendChild(div)
+    const Constructor = Vue.extend(Col)
+    const vm = new Constructor({
+      propsData: {
+        pc: {span: 1, offset: 2},
+      },
+    }).$mount(div)
+    expect(vm.$el.classList.contains('col-wide-pc-1')).to.eq(true)
+    expect(vm.$el.classList.contains('offset-wide-pc-2')).to.eq(true)
+    div.remove()
+    vm.$destroy()
+  })
 })

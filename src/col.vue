@@ -9,6 +9,7 @@
     let keys = Object.keys(value)
     let valid = true
     keys.forEach(key => {
+      // 要包含 span 和 offset
       if(!(['span', 'offset'].indexOf(key) >= 0)) {
         valid = false
       }
@@ -19,7 +20,9 @@
     name: 'xCol',
     props: {
       span: [Number, String],
+      // 偏移多少，空隙
       offset: [Number, String],
+      // 处理页面变化，响应式的变化
       narrowPc: { type: Object, validator },
       pc: { type: Object, validator },
       widePc: { type: Object, validator },
@@ -44,6 +47,10 @@
       }
     },
     computed: {
+      /**
+       * 实现 span 的功能
+       * @returns {...*|Array[]}
+       */
       colClass () {
         let {span, offset, ipad, narrowPc, pc, widePc} = this
         return [
@@ -66,6 +73,7 @@
 
 <style scoped lang="scss">
   .col {
+    /* scss 的 for 循环*/
     $class-prefix: col-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {

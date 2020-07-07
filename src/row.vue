@@ -19,6 +19,7 @@
       }
     },
     mounted () {
+      // 将 gutter 传到每一个子组件里面
       this.$children.forEach((vm) => {
         vm.gutter = this.gutter
       })

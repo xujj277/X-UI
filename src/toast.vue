@@ -75,7 +75,7 @@
       onClickClose () {
         this.close()
         if (this.closeButton && typeof this.closeButton.callback === 'function') {
-          this.closeButton.callback(this)
+          this.closeButton.callback(this) // this 就是 toast 的示例
         }
       }
     },
@@ -91,7 +91,7 @@
 
 <style lang="scss" scoped>
   $font-size: 14px;
-  $toast-min-height: 40px;
+  $toast-min-height: 40px; // 不要写死高度
   $toast-background: rgba(0, 0, 0, 0.75);
   .wrapper {
     position: fixed;

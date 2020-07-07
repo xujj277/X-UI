@@ -18,7 +18,7 @@ describe('TabsItem', () => {
   it('存在.', () => {
     expect(TabsItem).to.exist
   })
-  it('接受 name prop', () => {
+  it('接受 name 属性', () => {
     const Constructor = Vue.extend(TabsItem)
     const vm = new Constructor({
       propsData: {
