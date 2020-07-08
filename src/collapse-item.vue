@@ -29,6 +29,7 @@
     },
     inject: ['eventBus'],
     mounted () {
+      // 单向数据流
       this.eventBus && this.eventBus.$on('update:selected', (names) => {
         if (names.indexOf(this.name) >= 0) {
           this.open = true

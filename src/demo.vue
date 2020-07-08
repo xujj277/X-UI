@@ -15,7 +15,6 @@
 </template>
 
 <script>
-  import Button from './button'
   import Cascader from './cascader'
   import db from './db'
 
@@ -37,7 +36,6 @@
   export default {
     name: '',
     components: {
-      'x-button': Button,
       'x-cascader': Cascader
     },
     data() {

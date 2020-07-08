@@ -19,6 +19,7 @@
     },
     data() {
       return {
+        // 发布订阅者模式
         eventBus: new Vue()
       }
     },
@@ -37,8 +38,8 @@
         } else {
           selectedCopy.push(name)
         }
-        this.eventBus.$emit('update:selected', selectedCopy)
-        this.$emit('update:selected', selectedCopy)
+        this.eventBus.$emit('update:selected', selectedCopy) // 通知儿子
+        this.$emit('update:selected', selectedCopy) // 通知外面
       })
       this.eventBus.$on('update:removeSelected', (name) => {
         let selectedCopy = JSON.parse(JSON.stringify(this.selected))
