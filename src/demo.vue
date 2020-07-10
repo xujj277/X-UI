@@ -1,21 +1,28 @@
 <template>
   <div>
-    {{selected && selected[0] && selected[0].name || '空'}}
-    {{selected && selected[1] && selected[1].name || '空'}}
-    {{selected && selected[2] && selected[2].name || '空'}}
     <div style="padding: 20px">
       <x-cascader :source.sync="source"
                   popover-height="200px"
                   :selected.sync="selected"
-                  @update:selected="xxx"
+                  @update:selected="onUpdateSelected"
+                  @update:source="onUpdateSource"
                   :load-data="loadData"
       ></x-cascader>
     </div>
+    <x-popover>
+      <template>
+        <button>点我</button>
+      </template>
+      <template slot="content">
+        弹出内容
+      </template>
+    </x-popover>
   </div>
 </template>
 
 <script>
   import Cascader from './cascader'
+  import Popover from './popover'
   import db from './db'
 
   function ajax (parent_id = 0) {
@@ -23,20 +30,21 @@
       setTimeout(() => {
         let result = db.filter((item) => item.parent_id === parent_id)
         result.forEach(node => {
-          if (db.filter(item => item.parent_id === node.id)) {
+          if (db.filter(item => item.parent_id === node.id).length > 0) {
             node.isLeaf = false
           } else {
             node.isLeaf = true
           }
         })
         success(result)
-      }, 1000)
+      }, 100)
     })
   }
   export default {
-    name: '',
+    name: 'demo',
     components: {
-      'x-cascader': Cascader
+      'x-cascader': Cascader,
+      'x-popover': Popover
     },
     data() {
       return {
@@ -48,9 +56,6 @@
       ajax(0).then((result) => {
         this.source = result
       })
-      ajax(1).then((result) => {
-        console.log(result)
-      })
     },
     methods: {
       loadData(lastItem, updateSource) {
@@ -59,14 +64,14 @@
           updateSource(result) // 回调，把别人传过来的函数执行
         })
       },
-      xxx() {
+      onUpdateSelected() {
         ajax(this.selected[0].id).then(result => {
-          console.log(result)
           let lastLevelSelected = this.source.filter(item => item.id = this.selected[0].id)[0]
           this.$set(lastLevelSelected, 'children', result)
           // lastLevelSelected.children = result
-          console.log(lastLevelSelected.children)
         })
+      },
+      onUpdateSource () {
       }
     }
   }

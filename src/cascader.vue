@@ -1,6 +1,6 @@
 <template>
-  <div class="cascader">
-    <div class="trigger" @click="popoverVisible = !popoverVisible">
+  <div class="cascader" ref="cascader">
+    <div class="trigger" @click="toggle">
       {{result || '&nbsp'}}
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
@@ -8,7 +8,8 @@
                      :items="source"
                      :height="popoverHeight"
                      :selected="selected"
-                     @update:selected="updateSelected"
+                     @update:selected="onUpdateSelected"
+                     :load-data="loadData"
       ></cascader-item>
     </div>
   </div>
@@ -39,15 +40,45 @@
         popoverVisible: false,
       }
     },
-    computed: {
-    },
     methods: {
-      updateSelected(newSelected) {
+      onClickDocument (e) {
+        let {cascader} = this.$refs
+        let {target} = e
+        if (cascader === target || cascader.contains(target)) {
+          return
+        }
+        this.close()
+      },
+      open() {
+        this.popoverVisible = true
+        this.$nextTick(() => {
+          document.addEventListener('click', this.onClickDocument)
+        })
+      },
+      close () {
+        this.popoverVisible = false
+        document.removeEventListener('click', this.onClickDocument)
+      },
+      toggle () {
+        if (this.popoverVisible) {
+          this.close()
+        } else {
+          this.open()
+        }
+      },
+      onUpdateSelected(newSelected) {
         this.$emit('update:selected', newSelected)
+        // 最后一项
         let lastItem = newSelected[newSelected.length - 1]
         let simplest = (children, id) => {
           return children.filter(item => item.id === id)[0]
         }
+        /**
+         * 把复杂的变成简单的搜索
+         * @param children
+         * @param id
+         * @returns {undefined|*}
+         */
         let complex = (children, id) => {
           let noChildren = []
           let hasChildren = []
@@ -66,7 +97,7 @@
             if (found) return found
             else {
               for (let i = 0; i < hasChildren.length; i++) {
-                found = complex(hasChildren, id)
+                found = complex(hasChildren[i].children, id)
                 if (found) {
                   return found
                 }
@@ -76,7 +107,6 @@
           }
         }
         let updateSource = (result) => {
-          console.log(this.source)
           let copy = JSON.parse(JSON.stringify(this.source))
           let toUpdate = complex(copy, lastItem.id)
           toUpdate.children = result
@@ -84,7 +114,7 @@
 
         }
         if (!lastItem.isLeaf) {
-          this.loadData(lastItem, updateSource) // 回调，把别人传过来的函数执行
+          this.loadData && this.loadData(lastItem, updateSource) // 回调，把别人传过来的函数执行
           // 调回调的时候传一个函数，这个函数理论上应该被调用
         }
       }
@@ -101,6 +131,8 @@
   @import 'var';
   .cascader {
     position: relative;
+    display: inline-block;
+    border: 1px solid red;
     .trigger {
       border: 1px solid $border-color;
       display: inline-flex;

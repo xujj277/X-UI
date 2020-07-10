@@ -6,7 +6,7 @@
            @click="onClickLabel(item)"
       >
         <span class="name">{{item.name}}</span>
-        <icon class="icon" v-if="!item.isLeaf" name="shezhi"></icon>
+        <icon class="icon" v-if="rightArrowVisible(item)" name="shezhi"></icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
@@ -41,10 +41,10 @@
       level: {
         type: Number,
         default: 0
+      },
+      loadData: {
+        type: Function
       }
-    },
-    updated() {
-      console.log(this.items)
     },
     computed: {
       rightItems () {
@@ -57,10 +57,13 @@
       }
     },
     methods: {
+      rightArrowVisible (item) {
+        return this.loadData ? !item.isLeaf : item.children
+      },
       onClickLabel(item) {
         let copy = JSON.parse(JSON.stringify(this.selected))
         copy[this.level] = item
-        copy.splice(this.level + 1)
+        copy.splice(this.level + 1) // 把后面的 selected 值都删掉
         this.$emit('update:selected', copy)
       },
       updateSelected(onSelected) {
@@ -91,10 +94,11 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    flex-wrap: nowrap;
     &:hover {
       background-color: $grey;
     }
-    .name {
+    > .name {
       margin-right: 1em;
       user-select: none;
     }
