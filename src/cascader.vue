@@ -1,7 +1,7 @@
 <template>
-  <div class="cascader" ref="cascader">
+  <div class="cascader" ref="cascader" v-click-outside="close">
     <div class="trigger" @click="toggle">
-      {{result || '&nbsp'}}
+      {{result || '&nbsp;'}}
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
       <cascader-item class="popover"
@@ -17,9 +17,11 @@
 
 <script>
   import CascaderItem from './cascader-item'
+  import clickOutside from './click-outside'
   export default {
     name: 'xCascader',
     components: { CascaderItem },
+    directives: {clickOutside},
     props: {
       source: {
         type: Array
@@ -51,13 +53,10 @@
       },
       open() {
         this.popoverVisible = true
-        this.$nextTick(() => {
-          document.addEventListener('click', this.onClickDocument)
-        })
       },
       close () {
+        console.log(11111)
         this.popoverVisible = false
-        document.removeEventListener('click', this.onClickDocument)
       },
       toggle () {
         if (this.popoverVisible) {
@@ -132,7 +131,6 @@
   .cascader {
     position: relative;
     display: inline-block;
-    border: 1px solid red;
     .trigger {
       border: 1px solid $border-color;
       display: inline-flex;
@@ -150,6 +148,7 @@
       background: #fff;
       margin-top: 8px;
       @extend .box-shadow;
+      z-index: 1;
     }
   }
 </style>

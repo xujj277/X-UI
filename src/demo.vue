@@ -9,6 +9,15 @@
                   :load-data="loadData"
       ></x-cascader>
     </div>
+    <div style="padding: 20px">
+      <x-cascader :source.sync="source"
+                  popover-height="200px"
+                  :selected.sync="selected"
+                  @update:selected="onUpdateSelected"
+                  @update:source="onUpdateSource"
+                  :load-data="loadData"
+      ></x-cascader>
+    </div>
     <x-popover>
       <template>
         <button>点我</button>
@@ -24,6 +33,7 @@
   import Cascader from './cascader'
   import Popover from './popover'
   import db from './db'
+  import removeListener from './click-outside'
 
   function ajax (parent_id = 0) {
     return new Promise((success, fail) => {

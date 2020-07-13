@@ -6,7 +6,10 @@
            @click="onClickLabel(item)"
       >
         <span class="name">{{item.name}}</span>
-        <icon class="icon" v-if="rightArrowVisible(item)" name="shezhi"></icon>
+        <span class="icons">
+          <icon class="next" v-if="rightArrowVisible(item)" name="right"></icon>
+          <icon class="loading" name="loading"></icon>
+        </span>
       </div>
     </div>
     <div class="right" v-if="rightItems">
@@ -102,9 +105,17 @@
       margin-right: 1em;
       user-select: none;
     }
-    .icon {
+    .icons {
       margin-left: auto;
-      transform: scale(0.5);
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      .next {
+        transform: scale(0.5);
+      }
+      .loading {
+        animation: spin 2s infinite linear;
+      }
     }
   }
 }
