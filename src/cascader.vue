@@ -10,6 +10,7 @@
                      :selected="selected"
                      @update:selected="onUpdateSelected"
                      :load-data="loadData"
+                     :loading-item="loadingItem"
       ></cascader-item>
     </div>
   </div>
@@ -17,11 +18,11 @@
 
 <script>
   import CascaderItem from './cascader-item'
-  import clickOutside from './click-outside'
+  import ClickOutside from './click-outside'
   export default {
     name: 'xCascader',
     components: { CascaderItem },
-    directives: {clickOutside},
+    directives: { ClickOutside },
     props: {
       source: {
         type: Array
@@ -40,6 +41,7 @@
     data() {
       return {
         popoverVisible: false,
+        loadingItem: {} // 用来处理 loading icon 的
       }
     },
     methods: {
@@ -105,15 +107,17 @@
           }
         }
         let updateSource = (result) => {
+          this.loadingItem = {}
           let copy = JSON.parse(JSON.stringify(this.source))
           let toUpdate = complex(copy, lastItem.id)
           toUpdate.children = result
           this.$emit('update:source', copy)
 
         }
-        if (!lastItem.isLeaf) {
-          this.loadData && this.loadData(lastItem, updateSource) // 回调，把别人传过来的函数执行
+        if (!lastItem.isLeaf && this.loadData) {
+          this.loadData(lastItem, updateSource) // 回调，把别人传过来的函数执行
           // 调回调的时候传一个函数，这个函数理论上应该被调用
+          this.loadingItem = lastItem
         }
       }
     },
@@ -138,6 +142,7 @@
       padding: 0 1em;
       min-width: 10em;
       border-radius: $border-radius;
+      background: #fff;
     }
     .popover-wrapper {
       position: absolute;

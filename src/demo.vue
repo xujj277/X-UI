@@ -4,17 +4,6 @@
       <x-cascader :source.sync="source"
                   popover-height="200px"
                   :selected.sync="selected"
-                  @update:selected="onUpdateSelected"
-                  @update:source="onUpdateSource"
-                  :load-data="loadData"
-      ></x-cascader>
-    </div>
-    <div style="padding: 20px">
-      <x-cascader :source.sync="source"
-                  popover-height="200px"
-                  :selected.sync="selected"
-                  @update:selected="onUpdateSelected"
-                  @update:source="onUpdateSource"
                   :load-data="loadData"
       ></x-cascader>
     </div>
@@ -47,7 +36,7 @@
           }
         })
         success(result)
-      }, 100)
+      }, 1000)
     })
   }
   export default {
@@ -68,20 +57,10 @@
       })
     },
     methods: {
-      loadData(lastItem, updateSource) {
-        let {name, id, parent_id} = lastItem
+      loadData({id}, updateSource) {
         ajax(id).then(result => {
           updateSource(result) // 回调，把别人传过来的函数执行
         })
-      },
-      onUpdateSelected() {
-        ajax(this.selected[0].id).then(result => {
-          let lastLevelSelected = this.source.filter(item => item.id = this.selected[0].id)[0]
-          this.$set(lastLevelSelected, 'children', result)
-          // lastLevelSelected.children = result
-        })
-      },
-      onUpdateSource () {
       }
     }
   }
@@ -94,24 +73,25 @@
     box-sizing: border-box;
   }
 
-  :root {
-    --button-height: 32px;
-    --font-size: 14px;
-    --button-bg: #fff;
-    --button-active-bg: #eee;
-    --border-radius: 4px;
-    --color: #999;
-    --border-color: #999;
-    --border-color-hover: #666;
-  }
+  /*:root {*/
+  /*  --button-height: 32px;*/
+  /*  --font-size: 14px;*/
+  /*  --button-bg: #fff;*/
+  /*  --button-active-bg: #eee;*/
+  /*  --border-radius: 4px;*/
+  /*  --color: #999;*/
+  /*  --border-color: #999;*/
+  /*  --border-color-hover: #666;*/
+  /*}*/
 
-  #app {
+  html {
+    --font-size: 14px;
   }
 
   body {
     font-size: var(--font-size);
   }
-  .box {
-    margin: 20px;
+  img {
+    max-width: 14px;
   }
 </style>

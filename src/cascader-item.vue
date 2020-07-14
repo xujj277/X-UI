@@ -7,8 +7,17 @@
       >
         <span class="name">{{item.name}}</span>
         <span class="icons">
-          <icon class="next" v-if="rightArrowVisible(item)" name="right"></icon>
-          <icon class="loading" name="loading"></icon>
+          <template v-if="item.name === loadingItem.name">
+            <icon class="loading"
+                  name="loading"
+            ></icon>
+          </template>
+          <template v-else>
+            <icon class="next"
+                  v-if="rightArrowVisible(item)"
+                  name="right"
+            ></icon>
+          </template>
         </span>
       </div>
     </div>
@@ -17,7 +26,9 @@
                        :height="height"
                        :level="level+1"
                        :selected="selected"
-                       @update:selected="updateSelected"
+                       @update:selected="onUpdateSelected"
+                       :loading-item="loadingItem"
+                       :load-data="loadData"
       ></x-cascader-item>
     </div>
   </div>
@@ -47,6 +58,10 @@
       },
       loadData: {
         type: Function
+      },
+      loadingItem: {
+        type: Object,
+        default: () => ({})
       }
     },
     computed: {
@@ -69,7 +84,7 @@
         copy.splice(this.level + 1) // 把后面的 selected 值都删掉
         this.$emit('update:selected', copy)
       },
-      updateSelected(onSelected) {
+      onUpdateSelected(onSelected) {
         this.$emit('update:selected', onSelected)
       }
     }
@@ -97,7 +112,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    flex-wrap: nowrap;
+    white-space: nowrap;
     &:hover {
       background-color: $grey;
     }
