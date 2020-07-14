@@ -1,12 +1,18 @@
 <template>
   <div class="popover" ref="popover">
     <!--    阻止冒泡 @click.stop-->
-    <div ref="contentWrapper" class="content-wrapper" v-if="visible"
-      :class="{[`position-${position}`]: true}"
+    <div ref="contentWrapper"
+         class="content-wrapper"
+         v-if="visible"
+         :class="{[`position-${position}`]: true}"
     >
-      <slot name="content" :close="close"></slot>
+      <slot name="content"
+            :close="close"
+      ></slot>
     </div>
-    <span ref="triggerWrapper" style="display: inline-block">
+    <span ref="triggerWrapper"
+          style="display: inline-block"
+    >
       <slot></slot>
     </span>
   </div>
@@ -37,6 +43,20 @@
       }
     },
     computed: {
+      openEvent () {
+        if (this.trigger === 'click') {
+          return 'click'
+        } else {
+          return 'mouseenter'
+        }
+      },
+      closeEvent () {
+        if (this.trigger === 'click') {
+          return 'click'
+        } else {
+          return 'mouseleave'
+        }
+      }
     },
     mounted() {
       if (this.trigger === 'click') {
@@ -84,7 +104,7 @@
         contentWrapper.style.left = positions[this.position].left + 'px'
         contentWrapper.style.top = positions[this.position].top + 'px'
       },
-      eventHandler (e) {
+      onClickDocument (e) {
         if (this.$refs.popover &&
           (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))
         ) { return }
@@ -97,12 +117,12 @@
         this.visible = true
         this.$nextTick(() => {
           this.positionContent()
-          document.addEventListener('click', this.eventHandler)
+          document.addEventListener('click', this.onClickDocument)
         })
       },
       close () {
         this.visible = false
-        document.removeEventListener('click', this.eventHandler)
+        document.removeEventListener('click', this.onClickDocument)
       },
       /**
        * 看点击的是不是按钮部分
@@ -110,7 +130,7 @@
        */
       onClick (event) {
         if (this.$refs.triggerWrapper.contains(event.target)) {
-          if (this.visible) {
+          if (this.visible === true) {
             this.close()
           } else {
             this.open()

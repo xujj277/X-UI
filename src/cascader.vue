@@ -55,7 +55,6 @@
         this.popoverVisible = true
       },
       close () {
-        console.log(11111)
         this.popoverVisible = false
       },
       toggle () {
