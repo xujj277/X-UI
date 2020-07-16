@@ -1,19 +1,31 @@
-const expect = chai.expect
-import Vue from 'vue'
-import Input from '../src/input'
+import chai,{ expect } from 'chai'
+import sinon from 'sinon'
+import sinonChai from 'sinon-chai'
+import { shallowMount, mount } from '@vue/test-utils'
+import Input from '@/input'
 
-Vue.config.productionTip = false
-Vue.config.devtools = false
+chai.use(sinonChai)
 
 describe('Input', () => {
   it('存在.', () => {
-    expect(Input).to.be.ok
+    expect(Input).to.exist
   })
   describe('porps', () => {
     const Constructor = Vue.extend(Input)
     let vm
     afterEach(() => {
       vm.$destroy()
+    })
+
+    xit('接受 value', () => {
+      const wrapper = mount(Input, {
+        propsData: {
+          value: '1234',
+        },
+      })
+      wrapper.find('button').trigger('click')
+      let classes = wrapper.find('.content-wrapper').classes()
+      expect(classes).to.include('position-bottom')
     })
     it('接受 value', () => {
       vm = new Constructor({
