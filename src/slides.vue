@@ -86,7 +86,14 @@
         let selected = this.getSelected()
         this.$children.forEach((vm) => {
           // 看动画是正的还是反的
-          vm.reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
+          let reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
+          if (this.lastSelectedIndex === this.$children.length - 1 && this.selectedIndex === 0) {
+            reverse = false
+          }
+          if (this.lastSelectedIndex === 0 && this.selectedIndex === this.$children.length - 1) {
+            reverse = true
+          }
+          vm.reverse = reverse
           this.$nextTick(() => {
             vm.selected = selected
           })
