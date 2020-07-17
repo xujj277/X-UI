@@ -3,7 +3,6 @@
        @mouseenter="onMouseEnter"
        @mouseleave="onMouseLeave"
        @touchstart="onTouchStart"
-       @touchmove="onTouchMove"
        @touchend="onTouchEnd"
   >
     <div class="x-slides-window" ref="window">
@@ -12,12 +11,14 @@
       </div>
     </div>
     <div class="x-slides-dots">
-      <span @click="select(selectedIndex - 1)">
+      <span @click="onClickPrev">
         <x-icon name="left"></x-icon>
       </span>
       <span v-for="n in childrenLength"
+            :key="n"
+            :data-index="n - 1"
             :class="{active: selectedIndex === n-1}"
-            @click="onClickPrev"
+            @click="select(n - 1)"
       >
         {{n}}
       </span>
@@ -36,6 +37,14 @@
     props: {
       selected: {
         type: String
+      },
+      autoPlay: {
+        type: Boolean,
+        default: true
+      },
+      autoPlayDelay: {
+        type: Number,
+        default: 3000
       }
     },
     data () {
@@ -48,7 +57,9 @@
     },
     mounted () {
       this.updateChildren()
-      this.playAutomatically()
+      if (this.autoPlay) {
+        this.playAutomatically()
+      }
       this.childrenLength = this.items.length
     },
     updated () {
@@ -76,9 +87,6 @@
         this.pause()
         if (e.touches.length > 1) {return}
         this.startTouch = e.touches[0]
-      },
-      onTouchMove() {
-
       },
       onTouchEnd(e) {
         let endTouch = e.changedTouches[0]
@@ -113,9 +121,9 @@
           let index = this.names.indexOf(this.getSelected())
           let newIndex = index + 1
           this.select(newIndex)
-          this.timerId = setTimeout(run, 1000)
+          this.timerId = setTimeout(run, this.autoPlayDelay)
         }
-        this.timerId = setTimeout(run, 1000)
+        this.timerId = setTimeout(run, this.autoPlayDelay)
       },
       pause () {
         window.clearTimeout(this.timerId)
