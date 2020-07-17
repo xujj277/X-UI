@@ -15,8 +15,8 @@
 </template>
 
 <script>
-  import XSlides from './slides'
-  import XSlidesItem from './slides-item'
+  import XSlides from './slides/slides'
+  import XSlidesItem from './slides/slides-item'
   export default {
     name: 'demo',
     components: { XSlides, XSlidesItem },

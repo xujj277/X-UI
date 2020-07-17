@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import Icon from './icon'
+  import Icon from '../icon'
 
 export default {
   name: 'xButton',
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "var";
+  @import "../var";
   .x-button {
     font-size: $font-size;
     height: $button-height;

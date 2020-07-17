@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import xIcon from './icon'
+  import xIcon from '../icon'
   export default {
     name: 'xSlides',
     components: {xIcon},
