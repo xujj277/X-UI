@@ -1,28 +1,33 @@
 <template>
-  <div class="wrapper">
-    <x-slides :selected.sync="selected">
-      <x-slides-item name="1">
-        <div class="box">1</div>
-      </x-slides-item>
-      <x-slides-item name="2">
-        <div class="box">2</div>
-      </x-slides-item>
-      <x-slides-item name="3">
-        <div class="box">3</div>
-      </x-slides-item>
-    </x-slides>
+  <div>
+    <x-nav :selected.sync="selected">
+      <x-nav-item name="home">首页</x-nav-item>
+      <x-sub-nav>
+        <template slot="title">关于</template>
+        <x-nav-item name="culture">企业文化</x-nav-item>
+        <x-nav-item name="developers">开发团队</x-nav-item>
+        <x-sub-nav>
+          <template slot="title">联系电话</template>
+          <x-nav-item name="wechat">微信</x-nav-item>
+          <x-nav-item name="qq">QQ</x-nav-item>
+          <x-nav-item name="phone">手机</x-nav-item>
+        </x-sub-nav>
+      </x-sub-nav>
+      <x-nav-item name="hire">招聘</x-nav-item>
+    </x-nav>
   </div>
 </template>
 
 <script>
-  import XSlides from './slides/slides'
-  import XSlidesItem from './slides/slides-item'
+  import XNav from './nav/nav'
+  import XNavItem from './nav/nav-item'
+  import XSubNav from './nav/sub-nav'
   export default {
     name: 'demo',
-    components: { XSlides, XSlidesItem },
+    components: { XNav, XNavItem, XSubNav },
     data() {
       return {
-        selected: undefined
+        selected: ['home']
       }
     },
     created () {
