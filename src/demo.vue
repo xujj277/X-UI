@@ -2,11 +2,11 @@
   <div>
     <x-nav :selected.sync="selected">
       <x-nav-item name="home">首页</x-nav-item>
-      <x-sub-nav>
+      <x-sub-nav name="about">
         <template slot="title">关于</template>
         <x-nav-item name="culture">企业文化</x-nav-item>
         <x-nav-item name="developers">开发团队</x-nav-item>
-        <x-sub-nav>
+        <x-sub-nav name="contact">
           <template slot="title">联系电话</template>
           <x-nav-item name="wechat">微信</x-nav-item>
           <x-nav-item name="qq">QQ</x-nav-item>
