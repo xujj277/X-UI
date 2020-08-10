@@ -6,9 +6,16 @@
         <x-icon name="right"></x-icon>
       </span>
     </span>
-    <div class="x-sub-nav-popover" v-show="open">
-      <slot></slot>
-    </div>
+    <transition name="x"
+                @enter="enter"
+                @leave="leave"
+                @after-leave="afterLeave"
+                @after-enter="afterEnter"
+    >
+      <div class="x-sub-nav-popover" v-show="open" :class="{vertical}">
+        <slot></slot>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -17,7 +24,7 @@
   import XIcon from '../icon'
   export default {
     name: 'XSubNav',
-    inject: ['root'],
+    inject: ['root', 'vertical'],
     directives: {ClickOutside},
     components: {XIcon},
     props: {
@@ -37,6 +44,35 @@
       }
     },
     methods: {
+      /**
+       * 用 js 实现 数列菜单动画
+       * @param el
+       * @param done
+       */
+      enter (el, done) {
+        let {height} = el.getBoundingClientRect()
+        el.style.height = 0
+        el.getBoundingClientRect()
+        el.style.height = `${height}px`
+        el.addEventListener('transitionend', () => {
+          done()
+        })
+      },
+      afterEnter (el) {
+        el.style.height = 'auto'
+      },
+      leave (el, done) {
+        let {height} = el.getBoundingClientRect()
+        el.style.height = `${height}px`
+        el.getBoundingClientRect()
+        el.style.height = 0
+        el.addEventListener('transitionend', () => {
+          done()
+        })
+      },
+      afterLeave (el) {
+        el.style.height = 'auto'
+      },
       onClick () {
         this.open = !this.open
       },
@@ -57,6 +93,14 @@
 
 <style lang='scss' scoped>
   @import "var";
+
+  /*.x-enter-active, .x-leave-active {*/
+  /*  transition: opacity .5s;*/
+  /*}*/
+  /*.x-enter, .x-leave-to !* .fade-leave-active below version 2.1.8 *! {*/
+  /*  opacity: 0;*/
+  /*}*/
+
   .x-sub-nav {
     position: relative;
 
@@ -89,6 +133,15 @@
       color: $light-color;
       font-size: $font-size;
       min-width: 8em;
+      transition: height 250ms;
+      overflow: hidden;
+
+      &.vertical {
+        position: static;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+      }
     }
   }
 

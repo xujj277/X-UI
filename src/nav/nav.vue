@@ -1,5 +1,5 @@
 <template>
-  <div class="x-nav">
+  <div class="x-nav" :class="{vertical}">
     <slot></slot>
   </div>
 </template>
@@ -9,7 +9,8 @@
     name: 'XNav',
     provide () {
       return {
-        root: this
+        root: this,
+        vertical: this.vertical
       }
     },
     data () {
@@ -24,6 +25,10 @@
         default: () => []
       },
       multiple: {
+        type: Boolean,
+        default: false
+      },
+      vertical: {
         type: Boolean,
         default: false
       }
@@ -76,5 +81,10 @@
     color: $color;
     cursor: default;
     user-select: none;
+
+    &.vertical {
+      flex-direction: column;
+      border: 1px solid $grey;
+    }
   }
 </style>
