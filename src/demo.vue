@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-nav :selected.sync="selected" style="width: 200px; margin: 20px;">
+    <x-nav :selected.sync="selected" style="margin: 20px;">
       <x-nav-item name="home">首页</x-nav-item>
       <x-sub-nav name="about">
         <template slot="title">关于</template>
@@ -15,7 +15,7 @@
       </x-sub-nav>
       <x-nav-item name="hire">招聘</x-nav-item>
     </x-nav>
-    <x-nav :selected.sync="selected" vertical style="width: 200px; margin: 20px;">
+    <x-nav :selected.sync="selected" vertical style=" margin: 220px;">
       <x-nav-item name="home">首页</x-nav-item>
       <x-sub-nav name="about">
         <template slot="title">关于</template>

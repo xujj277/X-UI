@@ -1,21 +1,28 @@
 <template>
-  <div class="x-sub-nav" :class="{active}" v-click-outside="close">
+  <div class="x-sub-nav" :class="{active, vertical}" v-click-outside="close">
     <span class="x-sub-nav-label" @click="onClick">
       <slot name="title"></slot>
-      <span class="x-sub-nav-icon" :class="{open}">
+      <span class="x-sub-nav-icon" :class="{open, vertical}">
         <x-icon name="right"></x-icon>
       </span>
     </span>
-    <transition name="x"
-                @enter="enter"
-                @leave="leave"
-                @after-leave="afterLeave"
-                @after-enter="afterEnter"
-    >
-      <div class="x-sub-nav-popover" v-show="open" :class="{vertical}">
+    <template v-if="vertical">
+      <transition name="x"
+                  @enter="enter"
+                  @leave="leave"
+                  @after-leave="afterLeave"
+                  @after-enter="afterEnter"
+      >
+        <div class="x-sub-nav-popover" v-show="open" :class="{vertical}">
+          <slot></slot>
+        </div>
+      </transition>
+    </template>
+    <template v-else>
+      <div class="x-sub-nav-popover" v-show="open">
         <slot></slot>
       </div>
-    </transition>
+    </template>
   </div>
 </template>
 
@@ -94,26 +101,22 @@
 <style lang='scss' scoped>
   @import "var";
 
-  /*.x-enter-active, .x-leave-active {*/
-  /*  transition: opacity .5s;*/
-  /*}*/
-  /*.x-enter, .x-leave-to !* .fade-leave-active below version 2.1.8 *! {*/
-  /*  opacity: 0;*/
-  /*}*/
-
   .x-sub-nav {
     position: relative;
 
-    &.active {
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        border-bottom: 2px solid $blue;
-        width: 100%;
+    &:not(.vertical) {
+      &.active {
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          border-bottom: 2px solid $blue;
+          width: 100%;
+        }
       }
     }
+
     &-label {
       padding: 10px 20px;
       display: block;
@@ -134,13 +137,13 @@
       font-size: $font-size;
       min-width: 8em;
       transition: height 250ms;
-      overflow: hidden;
 
       &.vertical {
         position: static;
         border: none;
         box-shadow: none;
         border-radius: 0;
+        overflow: hidden;
       }
     }
   }
@@ -167,6 +170,13 @@
       margin-left: 1em;
       svg {
         fill: $light-color;
+      }
+
+      &.vertical {
+        transform: rotate(90deg);
+        &.open {
+          transform: rotate(270deg);
+        }
       }
 
       &.open {
