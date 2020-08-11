@@ -30,6 +30,7 @@
       </x-sub-nav>
       <x-nav-item name="hire">招聘</x-nav-item>
     </x-nav>
+    {{selected}}
   </div>
 </template>
 
@@ -42,7 +43,7 @@
     components: { XNav, XNavItem, XSubNav },
     data() {
       return {
-        selected: ['home']
+        selected: 'home'
       }
     },
     created () {
