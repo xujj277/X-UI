@@ -61,7 +61,6 @@ describe('Nav.vue', (done) => {
     setTimeout(() => {
       wrapper.find('[data-name="culture"]').trigger('click')
       expect(callback).to.have.been.calledWith('culture')
-      console.log(wrapper.html())
       done()
     })
   })
