@@ -1,17 +1,32 @@
 <template>
   <div class="x-pager">
-    <span v-for="page in pages"
-          class="x-pager-item"
-          :class="{active: page === currentPage, separator: page === '...'}"
-    >
-      {{page}}
+    <span class="x-pager-nav prev" :class="{disabled: currentPage === 1}">
+      <x-icon name="left"></x-icon>
+    </span>
+    <template v-for="page in pages">
+      <template v-if="page === currentPage">
+        <span class="x-pager-item current">{{page}}</span>
+      </template>
+      <template v-else-if="page === '...'">
+        <x-icon class="x-pager-separator" name="dots">?</x-icon>
+      </template>
+      <template v-else>
+        <span class="x-pager-item other">{{page}}</span>
+      </template>
+    </template>
+    <span class="x-pager-nav next" :class="{disabled: currentPage === totalPage}">
+      <x-icon name="right"></x-icon>
     </span>
   </div>
 </template>
 
 <script>
+  import XIcon from './icon'
   export default {
     name: 'xPager',
+    components: {
+      XIcon
+    },
     props: {
       totalPage: {
         type: Number,
@@ -33,6 +48,7 @@
         this.currentPage + 2,
         this.currentPage - 1,
         this.currentPage - 2]
+        .filter((n) => n >= 1 && n <= this.totalPage)
         .sort((a, b) => a - b))
         .reduce((pre, cur, index, array) => {
           pre.push(cur)
@@ -56,6 +72,12 @@
 <style lang='scss' scoped>
   @import 'var';
   .x-pager {
+    $width: 20px;
+    $height: 20px;
+    $font-size: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     &-item {
       border: 1px solid #e1e1e1;
       border-radius: $border-radius;
@@ -63,21 +85,38 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      font-size: 12px;
-      min-width: 20px;
-      height: 20px;
+      font-size: $font-size;
+      min-width: $width;
+      height: $height;
       margin: 0 4px;
       cursor: pointer;
-      &.active, &:hover {
+      &.current, &:hover {
         border-color: $blue;
       }
-      &.active {
+      &.current {
         cursor: default;
       }
-      &.separator {
-        border: none;
+    }
+    &-separator {
+      width: $width;
+      font-size: $font-size;
+    }
+    &-nav {
+      margin: 0 4px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background: $grey;
+      width: $width;
+      height: $height;
+      border-radius: $border-radius;
+      font-size: $font-size;
+
+      &.disabled {
+        svg {
+          fill: darken($grey, 30%);
+        }
       }
     }
-
   }
 </style>

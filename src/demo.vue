@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-pager :total-page="20" :current-page="10"></x-pager>
+    <x-pager :total-page="10" :current-page="1"></x-pager>
   </div>
 </template>
 
