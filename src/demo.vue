@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-pager :total-page="10" :current-page="1"></x-pager>
+    <x-pager :total-page="1" :current-page.sync="currentPage"></x-pager>
   </div>
 </template>
 
@@ -11,6 +11,7 @@
     components: { XPager },
     data() {
       return {
+        currentPage: 1
       }
     },
     created () {

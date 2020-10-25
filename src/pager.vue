@@ -1,6 +1,8 @@
 <template>
-  <div class="x-pager">
-    <span class="x-pager-nav prev" :class="{disabled: currentPage === 1}">
+  <div class="x-pager" :class="{hide: hideIfOnePage && totalPage <= 1}">
+    <span class="x-pager-nav prev" :class="{disabled: currentPage === 1}"
+          @click="onClickPage(currentPage - 1)"
+    >
       <x-icon name="left"></x-icon>
     </span>
     <template v-for="page in pages">
@@ -11,10 +13,12 @@
         <x-icon class="x-pager-separator" name="dots">?</x-icon>
       </template>
       <template v-else>
-        <span class="x-pager-item other">{{page}}</span>
+        <span class="x-pager-item other" @click="onClickPage(page)">{{page}}</span>
       </template>
     </template>
-    <span class="x-pager-nav next" :class="{disabled: currentPage === totalPage}">
+    <span class="x-pager-nav next" :class="{disabled: currentPage === totalPage}"
+          @click="onClickPage(currentPage + 1)"
+    >
       <x-icon name="right"></x-icon>
     </span>
   </div>
@@ -41,24 +45,30 @@
         default: true
       }
     },
-    data() {
-      let pages = unique([1, this.totalPage,
-        this.currentPage,
-        this.currentPage + 1,
-        this.currentPage + 2,
-        this.currentPage - 1,
-        this.currentPage - 2]
-        .filter((n) => n >= 1 && n <= this.totalPage)
-        .sort((a, b) => a - b))
-        .reduce((pre, cur, index, array) => {
-          pre.push(cur)
-          array[index + 1] !== undefined && array[index + 1] - array[index] > 1 && pre.push('...')
-          return pre
-        }, [])
-      return {
-        pages
+    computed: {
+      pages () {
+        return unique([1, this.totalPage,
+          this.currentPage,
+          this.currentPage + 1,
+          this.currentPage + 2,
+          this.currentPage - 1,
+          this.currentPage - 2]
+          .filter((n) => n >= 1 && n <= this.totalPage)
+          .sort((a, b) => a - b))
+          .reduce((pre, cur, index, array) => {
+            pre.push(cur)
+            array[index + 1] !== undefined && array[index + 1] - array[index] > 1 && pre.push('...')
+            return pre
+          }, [])
       }
     },
+    methods: {
+      onClickPage (n) {
+        if (n >= 1 && n <= this.totalPage) {
+          this.$emit('update:currentPage', n)
+        }
+      }
+    }
   }
   function unique (array) {
     const object = {}
@@ -78,6 +88,11 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    user-select: none;
+
+    &.hide {
+      display: none;
+    }
     &-item {
       border: 1px solid #e1e1e1;
       border-radius: $border-radius;
@@ -111,8 +126,10 @@
       height: $height;
       border-radius: $border-radius;
       font-size: $font-size;
+      cursor: pointer;
 
       &.disabled {
+        cursor: default;
         svg {
           fill: darken($grey, 30%);
         }
