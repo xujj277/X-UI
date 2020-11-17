@@ -26,3 +26,7 @@ $blue: #4190e2;
     transform: rotate(360deg);
   }
 }
+
+@mixin spin {
+  animation: spin 2s infinite linear;
+}
