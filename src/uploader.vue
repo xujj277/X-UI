@@ -154,7 +154,7 @@
         this.$emit('update:fileList', fileListCopy)
       },
       doUploadFiles (formData, success, fail) {
-        http(this.method.toLowerCase(), this.action, { success, fail, data: formData })
+        http[this.method.toLowerCase()](this.action, { success, fail, data: formData })
       },
       createInput () {
         this.$refs.temp.innerHTML = ''
