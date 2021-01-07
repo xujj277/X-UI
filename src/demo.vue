@@ -1,44 +1,41 @@
 <template>
-  <div>
-    <x-uploader accept="image/*"
-                action="http://127.0.0.1:8085/upload"
-                name="files"
-                method="POST"
-                :parseResponse="parseResponse"
-                :file-list.sync="fileList"
-                @error="alert"
-                :size-limit="1024*1024"
-                @addFile="addFile"
-    >
-      <x-button icon="upload">上传</x-button>
-    </x-uploader>
+  <div style="display:flex; justify-content:center;">
+    <div style="width: 600px; border: 1px solid black;">
+      <p>段落1</p>
+      <p>段落2</p>
+      <p>段落3</p>
+      <p>段落4</p>
+      <p>段落5</p>
+      <p>段落6</p>
+      <x-sticky :distance="10">
+        <div style="border: 1px solid red">
+          我是粘粘内容
+        </div>
+      </x-sticky>
+      <p>段落1</p>
+      <p>段落2</p>
+      <p>段落3</p>
+      <p>段落4</p>
+      <p>段落5</p>
+      <p>段落6</p>
+      <p>段落7</p>
+      <p>段落8</p>
+      <p>段落9</p>
+    </div>
   </div>
 </template>
 
 <script>
-  import xUploader from './uploader'
-  import xButton from './button/button'
+  import xSticky from './sticky'
 
   export default {
     name: 'demo',
-    components: { xUploader, xButton },
+    components: { xSticky },
     data() {
       return {
-        fileList: []
       }
     },
     methods: {
-      alert (error) {
-        window.alert(error || '上传失败')
-      },
-      addFile (file) {
-        this.fileList.push(file)
-      },
-      parseResponse (response) {
-        let object = JSON.parse(response)
-        let url = `http://127.0.01:8085/preview/${object}`
-        return url
-      }
     }
   }
 </script>
@@ -56,11 +53,5 @@
 
   body {
     font-size: var(--font-size);
-  }
-
-  .button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 </style>
