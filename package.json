@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name X src/index.js",
     "test:unit": "vue-cli-service test:unit --watch",
     "test": "vue-cli-service test:unit",
     "docs:dev": "vuepress dev docs",
