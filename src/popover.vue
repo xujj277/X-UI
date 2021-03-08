@@ -2,9 +2,9 @@
   <div class="popover" ref="popover">
     <!--    阻止冒泡 @click.stop-->
     <div ref="contentWrapper"
-         class="content-wrapper"
+         class="x-popover-content-wrapper"
          v-if="visible"
-         :class="{[`position-${position}`]: true}"
+         :class="[{[`position-${position}`]: true}, popClassName]"
     >
       <slot name="content"
             :close="close"
@@ -22,6 +22,9 @@
   export default {
     name: 'xPopover',
     props: {
+      popClassName: {
+        type: String
+      },
       position: {
         type: String,
         default: 'top',
@@ -35,6 +38,9 @@
         validator (value) {
           return ['click', 'hover'].indexOf(value) >= 0
         }
+      },
+      container: {
+        type: Element
       }
     },
     data () {
@@ -79,8 +85,8 @@
        * 定位 popover 位置
        */
       positionContent () {
-        const {contentWrapper, triggerWrapper} = this.$refs
-        document.body.appendChild(this.$refs && contentWrapper)
+        const {contentWrapper, triggerWrapper} = this.$refs;
+        (this.container || document.body).appendChild(contentWrapper)
         const { width, height, top, left } = triggerWrapper.getBoundingClientRect()
         const {height: height2} = contentWrapper.getBoundingClientRect()
         let positions = { // 表驱动编程优化
@@ -149,7 +155,7 @@
   vertical-align: top;
   position: relative;
 }
-.content-wrapper {
+.x-popover-content-wrapper {
   position: absolute;
   border: 1px solid $border-color;
   border-radius: $border-radius;
