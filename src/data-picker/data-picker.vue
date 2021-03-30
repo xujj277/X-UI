@@ -1,18 +1,26 @@
 <template>
   <div class="x-date-picker" style="border: 1px solid red;" ref="wrapper">
-    <x-popover position="bottom" :container="x">
+    <x-popover position="bottom" :container="popoverContainer">
       <x-input type="text" :value="formattedValue"></x-input>
       <template slot="content">
         <div class="x-date-picker-pop">
           <div class="x-date-picker-nav">
-            <span :class="c('preYear', 'navItem')"><x-icon name="leftleft"></x-icon></span>
-            <span :class="c('preMonth', 'navItem')"><x-icon name="left"></x-icon></span>
-            <span :class="c('yearAndMonth')">
-              <span @click="onClickYears">2020年</span>
-              <span @click="onClickMonth">8月</span>
+            <span :class="c('preYear', 'navItem')" @click="onClickPrevYear">
+              <x-icon name="leftleft"></x-icon>
             </span>
-            <span :class="c('nextMonth', 'navItem')"><x-icon name="right"></x-icon></span>
-            <span :class="c('nextYear', 'navItem')"><x-icon name="rightright"></x-icon></span>
+            <span :class="c('preMonth', 'navItem')" @click="onClickPrevMonth">
+              <x-icon name="left"></x-icon>
+            </span>
+            <span :class="c('yearAndMonth')">
+              <span @click="onClickYears">{{display.year}}年</span>
+              <span @click="onClickMonth">{{display.month + 1}}月</span>
+            </span>
+            <span :class="c('nextMonth', 'navItem')" @click="onClickNextMonth">
+              <x-icon name="right"></x-icon>
+            </span>
+            <span :class="c('nextYear', 'navItem')" @click="onClickNextYear">
+              <x-icon name="rightright"></x-icon>
+            </span>
           </div>
           <div class="x-date-picker-panels">
             <div v-if="mode === 'years'" class="x-date-picker-content">年</div>
@@ -65,31 +73,28 @@ export default {
     }
   },
   data () {
+    const [year, month]  = helper.getYearMonthDate(new Date())
     return {
       mode: 'days',
       helper: helper,
       weekdays: ['日', '一', '二', '三', '四', '五', '六'],
-      x: null,
+      popoverContainer: null,
+      display: { year, month },
     }
   },
   mounted () {
-    this.x = this.$refs.wrapper
-    console.log(111)
+    this.popoverContainer = this.$refs.wrapper
   },
   methods: {
     c (...classNames) {
       return classNames.map(className => `x-date-picker-${className}`)
     },
-    onBlurInput () {
-      console.log(1)
-    },
-    onFocusInput () {
-      console.log(2)
-    },
     onClickYears () {
-
+      this.mode = 'years'
     },
-    onClickMonth () {},
+    onClickMonth () {
+      this.mode = 'months'
+    },
     onClickCell (date) {
       if (this.isCurrentMonth(date)) {
         this.$emit('input', date)
@@ -99,9 +104,32 @@ export default {
       return this.visibleDays[(row - 1) * 7 + col - 1]
     },
     isCurrentMonth (date) {
-      const [year1, month1] = helper.getYearMonthDay(date)
-      const [year2, month2] = helper.getYearMonthDay(this.value)
-      return year1 === year2 && month1 === month2
+      const [year1, month1] = helper.getYearMonthDate(date)
+      return year1 === this.display.year && month1 === this.display.month
+    },
+    onClickPrevYear () {
+      const oldDate = new Date(this.display.year, this.display.month)
+      const newDate = helper.addYear(oldDate, -1)
+      const [year, month]  = helper.getYearMonthDate(newDate)
+      this.display = {year, month}
+    },
+    onClickPrevMonth () {
+      const oldDate = new Date(this.display.year, this.display.month)
+      const newDate = helper.addMonth(oldDate, -1)
+      const [year, month]  = helper.getYearMonthDate(newDate)
+      this.display = {year, month}
+    },
+    onClickNextMonth () {
+      const oldDate = new Date(this.display.year, this.display.month)
+      const newDate = helper.addMonth(oldDate, 1)
+      const [year, month]  = helper.getYearMonthDate(newDate)
+      this.display = {year, month}
+    },
+    onClickNextYear () {
+      const oldDate = new Date(this.display.year, this.display.month)
+      const newDate = helper.addYear(oldDate, 1)
+      const [year, month]  = helper.getYearMonthDate(newDate)
+      this.display = {year, month}
     }
   },
   computed: {
@@ -110,7 +138,7 @@ export default {
       const first = helper.firstDayOfMonth(date)
       const last = helper.lastDayOfMonth(date)
       let array = []
-      const [year, month, day] = helper.getYearMonthDay(date)
+      const [year, month, day] = helper.getYearMonthDate(date)
       let n = first.getDay()
       let x = first - (n === 0 ? 6 : n - 1) * 3600 * 24 * 1000
       for (let i = 0; i < 42; i++) {
@@ -119,7 +147,7 @@ export default {
       return array
     },
     formattedValue () {
-      const [year, month, day] = helper.getYearMonthDay(this.value)
+      const [year, month, day] = helper.getYearMonthDate(this.value)
       return `${year}-${month+1}-${day}`
     }
   },

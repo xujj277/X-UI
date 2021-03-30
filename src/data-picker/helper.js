@@ -1,10 +1,10 @@
 export default {
   firstDayOfMonth (date) {
-    let [year, month, day] = getYearMonthDay(date)
+    let [year, month, day] = getYearMonthDate(date)
     return new Date(year, month, 1)
   },
   lastDayOfMonth (date) {
-    let [year, month, day] = getYearMonthDay(date)
+    let [year, month, day] = getYearMonthDate(date)
     return new Date(year, month + 1, 0)
   },
   range (begin, end) {
@@ -14,10 +14,24 @@ export default {
     }
     return array
   },
-  getYearMonthDay
+  getYearMonthDate,
+  addMonth (date, n) {
+    const [_1, month, _2]  = getYearMonthDate(date)
+    const newMonth = month + n
+    const copy = new Date(date)
+    copy.setMonth(newMonth)
+    return copy
+  },
+  addYear (date, n) {
+    const [year]  = getYearMonthDate(date)
+    const newYear = year + n
+    const copy = new Date(date)
+    copy.setFullYear(newYear)
+    return copy
+  } 
 }
 
-function getYearMonthDay (date) {
+function getYearMonthDate (date) {
   const year = date.getFullYear()
   const month = date.getMonth()
   const day = date.getDate()

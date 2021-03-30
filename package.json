@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "main": "dist/X.umd.min.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --watch",
     "build": "vue-cli-service build --target lib --name X src/index.js",
     "test:unit": "vue-cli-service test:unit --watch",
     "test": "cross-env NODE_ENV=test vue-cli-service test:unit",
