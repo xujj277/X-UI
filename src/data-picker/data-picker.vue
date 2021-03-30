@@ -74,6 +74,7 @@ export default {
   },
   mounted () {
     this.x = this.$refs.wrapper
+    console.log(111)
   },
   methods: {
     c (...classNames) {
