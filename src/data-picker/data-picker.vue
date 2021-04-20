@@ -1,6 +1,6 @@
 <template>
   <div class="x-date-picker" style="border: 1px solid red;" ref="wrapper">
-    <x-popover position="bottom" :container="popoverContainer">
+    <x-popover ref="popover" position="bottom" :container="popoverContainer" @open="onOpen">
       <x-input type="text" :value="formattedValue"></x-input>
       <template slot="content">
         <div class="x-date-picker-pop" @selectstart.prevent>
@@ -110,6 +110,7 @@ export default {
     onClickCell (date) {
       if (this.isCurrentMonth(date)) {
         this.$emit('input', date)
+        this.$refs.popover.close()
       }
     },
     getVisibleDay (row, col) {
@@ -162,6 +163,10 @@ export default {
     },
     onClickClear () {
       this.$emit('input', undefined)
+      this.$refs.popover.close()
+    },
+    onOpen () {
+      this.mode = 'day'
     }
   },
   computed: {
@@ -181,7 +186,7 @@ export default {
     formattedValue () {
       if (!this.value) {return ''}
       const [year, month, day] = helper.getYearMonthDate(this.value)
-      return `${year}-${month + 1}-${day}`
+      return `${year}-${helper.pad2(month + 1)}-${helper.pad2(day)}`
     },
   },
 }

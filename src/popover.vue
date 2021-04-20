@@ -121,6 +121,7 @@
       },
       open () {
         this.visible = true
+        this.$emit('open')
         this.$nextTick(() => {
           this.positionContent()
           document.addEventListener('click', this.onClickDocument)
@@ -128,6 +129,7 @@
       },
       close () {
         this.visible = false
+        this.$emit('close')
         document.removeEventListener('click', this.onClickDocument)
       },
       /**

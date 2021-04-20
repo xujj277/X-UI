@@ -28,7 +28,13 @@ export default {
     const copy = new Date(date)
     copy.setFullYear(newYear)
     return copy
-  } 
+  },
+  pad2 (number) {
+    if (typeof number !== 'number') {
+      throw new Error('wrong param')
+    }
+    return (number >= 10 ? '' : '0') + number
+  }
 }
 
 function getYearMonthDate (date) {
