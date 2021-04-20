@@ -1,7 +1,7 @@
 <template>
   <div class="x-date-picker" style="border: 1px solid red;" ref="wrapper">
     <x-popover ref="popover" position="bottom" :container="popoverContainer" @open="onOpen">
-      <x-input type="text" :value="formattedValue"></x-input>
+      <x-input type="text" :value="formattedValue" @input="onInput" @change="onChange" ref="input"></x-input>
       <template slot="content">
         <div class="x-date-picker-pop" @selectstart.prevent>
           <div class="x-date-picker-nav">
@@ -96,6 +96,20 @@ export default {
   methods: {
     c (...classNames) {
       return classNames.map(className => `x-date-picker-${className}`)
+    },
+    onInput(value) {
+      let regex = /^\d{4}-\d{2}-\d{2}$/g
+      if (value.match(regex)) {
+        console.log('符合')
+        let [year, month, day] = value.split('-')
+        month = month - 1
+        year = year - 0
+        this.display = {year, month}
+        this.$emit('input', new Date(year, month, day))
+      }
+    },
+    onChange () {
+      this.$refs.input.setRawValue(this.formattedValue)
     },
     onClickYears () {
       this.mode = 'years'
