@@ -79,5 +79,9 @@ export default {
     .loading {
       @include spin;
     }
+    
+    & + & {
+      margin-left: 4px;
+    }
   }
 </style>

@@ -11,7 +11,7 @@ export default {
   components: { XDataPicker },
   data() {
     return {
-      d: new Date()
+      d: new Date(2021, 3, 12)
     }
   },
   methods: {

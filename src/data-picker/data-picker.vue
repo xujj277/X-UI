@@ -34,7 +34,11 @@
                 </span>
                 </div>
                 <div :class="c('row')" v-for="i in helper.range(1, 7)" :key="i">
-                <span :class="[c('cell'), {currentMonth: isCurrentMonth(getVisibleDay(i, j))}]"
+                <span :class="[c('cell'), {
+                  currentMonth: isCurrentMonth(getVisibleDay(i, j)),
+                  selected: isSelected(getVisibleDay(i, j)),
+                  today: isToday(getVisibleDay(i, j))
+                }]"
                       v-for="j in helper.range(1, 8)"
                       :key="j"
                       @click="onClickCell(getVisibleDay(i, j))"
@@ -46,7 +50,8 @@
             </div>
           </div>
           <div class="x-date-picker-actions">
-            <button>清除</button>
+            <x-button @click="onClickToday">今天</x-button>
+            <x-button @click="onClickClear">清除</x-button>
           </div>
         </div>
       </template>
@@ -60,10 +65,11 @@ import XInput from '@/input'
 import XIcon from '../icon'
 import XPopover from '../popover'
 import ClickOutside from '../click-outside'
+import XButton from '../button/button'
 
 export default {
   name: 'XDataPicker',
-  components: { XInput, XIcon, XPopover },
+  components: { XInput, XIcon, XPopover, XButton },
   directives: { ClickOutside },
   props: {
     firstDayOfWeek: {
@@ -72,11 +78,10 @@ export default {
     },
     value: {
       type: Date,
-      default: () => new Date(),
     },
   },
   data () {
-    const [year, month] = helper.getYearMonthDate(new Date())
+    const [year, month] = helper.getYearMonthDate(this.value || new Date())
     return {
       mode: 'days',
       helper: helper,
@@ -114,6 +119,17 @@ export default {
       const [year1, month1] = helper.getYearMonthDate(date)
       return year1 === this.display.year && month1 === this.display.month
     },
+    isSelected (date) {
+      if (!this.value) {return false}
+      let [y, m, d] = helper.getYearMonthDate(date)
+      let [y2, m2, d2] = helper.getYearMonthDate(this.value)
+      return y === y2 && m === m2 && d === d2
+    },
+    isToday (date) {
+      let [y, m, d] = helper.getYearMonthDate(date)
+      let [y2, m2, d2] = helper.getYearMonthDate(new Date())
+      return y === y2 && m === m2 && d === d2
+    },
     onClickPrevYear () {
       const oldDate = new Date(this.display.year, this.display.month)
       const newDate = helper.addYear(oldDate, -1)
@@ -138,14 +154,23 @@ export default {
       const [year, month] = helper.getYearMonthDate(newDate)
       this.display = { year, month }
     },
+    onClickToday () {
+      const now = new Date()
+      const [year, month, day] = helper.getYearMonthDate(now)
+      this.display = { year, month }
+      this.$emit('input', new Date(year, month, day))
+    },
+    onClickClear () {
+      this.$emit('input', undefined)
+    }
   },
   computed: {
     visibleDays () {
-      const date = this.value
+      const date = new Date(this.display.year, this.display.month, 1)
       const first = helper.firstDayOfMonth(date)
       const last = helper.lastDayOfMonth(date)
-      let array = []
       const [year, month, day] = helper.getYearMonthDate(date)
+      let array = []
       let n = first.getDay()
       let x = first - (n === 0 ? 6 : n - 1) * 3600 * 24 * 1000
       for (let i = 0; i < 42; i++) {
@@ -154,6 +179,7 @@ export default {
       return array
     },
     formattedValue () {
+      if (!this.value) {return ''}
       const [year, month, day] = helper.getYearMonthDate(this.value)
       return `${year}-${month + 1}-${day}`
     },
@@ -162,6 +188,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+@import "var";
+
 .x-date-picker {
 
   &-popWrapper {
@@ -182,9 +210,22 @@ export default {
 
   &-cell {
     color: grey;
+    cursor: not-allowed;
+    border-radius: $border-radius;
 
     &.currentMonth {
       color: black;
+      &:hover {
+        background: $blue;
+        cursor: pointer;
+        color: white;
+      }
+    }
+    &.selected {
+      border: 1px solid $blue;
+    }
+    &.today {
+      background: $grey;
     }
   }
 
@@ -200,5 +241,10 @@ export default {
     width: 224px;
     height: 224px;
   }
+  
+  &-actions {
+    padding: 8px;
+    text-align: right;
+  } 
 }
 </style>
