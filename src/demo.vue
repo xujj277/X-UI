@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div id="test" style="height: 100px; width: 100px;border: 1px solid red; position:absolute; top: 0; left: 0;"></div>
+    <div id="test" draggable="true" style="height: 100px; width: 100px;border: 1px solid red; position:absolute; top: 0; left: 0;">test</div>
 <!--    {{this.selected}}-->
 <!--    <div style="margin: 20px;">-->
 <!--      <x-table :data-source="dataSource"-->
@@ -142,6 +142,10 @@
    border: 5px solid green;
    box-sizing: border-box;
  }
+ 
+ .hide {
+   opacity: 0.2;
+ }
 </style>
 
 <script>
@@ -195,17 +199,23 @@ export default {
   },
   mounted () {
     let test = document.querySelector('#test')
-    test.addEventListener('dragstart', () => {
+    let startPosition 
+    let endPosition
+    test.addEventListener('dragstart', (e) => {
       console.log('开始了')
+      test.classList.add('hide')
+      let {screenX: x, screenY: y} = e
+      startPosition = [x, y]
     })
     test.addEventListener('dragend', (e) => {
-      e.preventDefault()
+      console.log('结束了', e)
+      let {screenX: x, screenY: y} = e
+      endPosition = [x, y]
+      let deltaX = endPosition[0] - startPosition[0]
+      let deltaY = endPosition[1] - startPosition[1]
+      test.style.left = parseInt(test.style.left) + deltaX + 'px'
+      test.style.top = parseInt(test.style.top) + deltaY + 'px'
     })
-    test.addEventListener("dragover",  (e) => {
-      // 阻止默认动作以启用drop
-      e.preventDefault();
-    }, false);
-    
   },
   methods: {
     edit (item) {
