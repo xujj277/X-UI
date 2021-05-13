@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div id="test" draggable="true" style="height: 100px; width: 100px;border: 1px solid red; position:absolute; top: 0; left: 0;">test</div>
+    <div id="test" style="height: 100px; width: 100px;border: 1px solid red; position:absolute; top: 0; left: 0; z-index: 1">test</div>
 <!--    {{this.selected}}-->
 <!--    <div style="margin: 20px;">-->
 <!--      <x-table :data-source="dataSource"-->
@@ -199,22 +199,29 @@ export default {
   },
   mounted () {
     let test = document.querySelector('#test')
-    let startPosition 
+    let startPosition
     let endPosition
-    test.addEventListener('dragstart', (e) => {
-      console.log('开始了')
-      test.classList.add('hide')
-      let {screenX: x, screenY: y} = e
-      startPosition = [x, y]
+    let isMoving = false
+    let translateX = 0
+    let translateY = 0
+    test.addEventListener('mousedown', (e) => {
+      isMoving = true
+      let {screenX, screenY} = e
+      startPosition = {x: screenX, y: screenY}
     })
-    test.addEventListener('dragend', (e) => {
-      console.log('结束了', e)
-      let {screenX: x, screenY: y} = e
-      endPosition = [x, y]
-      let deltaX = endPosition[0] - startPosition[0]
-      let deltaY = endPosition[1] - startPosition[1]
-      test.style.left = parseInt(test.style.left) + deltaX + 'px'
-      test.style.top = parseInt(test.style.top) + deltaY + 'px'
+    document.addEventListener('mousemove', (e) => {
+      if (!isMoving) return
+      let {screenX, screenY} = e
+      endPosition = {x: screenX, y: screenY}
+      let delta = {x: endPosition.x - startPosition.x, y: endPosition.y - startPosition.y}
+      translateX = parseInt(translateX) + delta.x
+      translateY = parseInt(translateY) + delta.y
+      startPosition = endPosition
+      test.style.transform = `translate(${0}px, ${translateY}px)`
+      console.log('move')
+    })
+    test.addEventListener('mouseup', () => {
+      isMoving = false
     })
   },
   methods: {
