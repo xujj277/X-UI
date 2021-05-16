@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div class="x-scroll-track" v-show="scrollBarVisible">
-      <div class="x-scroll-bar" ref="bar">
+      <div class="x-scroll-bar" ref="bar" @mousedown="onMouseDownScrollbar" @mouseup="onMouseUpScrollbar">
         <div class="x-scroll-bar-inner"></div>
       </div>
     </div>
@@ -56,10 +56,18 @@ export default {
   name: 'XScroll',
   data () {
     return {
-      scrollBarVisible: false
+      scrollBarVisible: false,
+      isScrolling: false,
+      startPosition: undefined,
+      endPosition: undefined,
+      translateX: 0,
+      translateY: 0
     }
   },
   mounted () {
+    document.addEventListener('mouseMove', (e) => {
+      this.onMouseMoveScrollbar(e)
+    })
     const parent = this.$refs.parent
     const child = this.$refs.child
     let translateY = 0
@@ -104,6 +112,26 @@ export default {
     },
     onMouseLeave () { 
       this.scrollBarVisible = false
+    },
+    onMouseDownScrollbar (e) {
+      console.log(2222)
+      this.isScrolling = true
+      let {screenX, screenY} = e
+      this.startPosition = {x: screenX, y: screenY}
+    },
+    onMouseMoveScrollbar (e) {
+      if (!this.isScrolling) return
+      let {screenX, screenY} = e
+      this.endPosition = {x: screenX, y: screenY}
+      let delta = {x: this.endPosition.x - this.startPosition.x, y: this.endPosition.y - this.startPosition.y}
+      this.translateX = parseInt(this.translateX) + delta.x
+      this.translateY = parseInt(this.translateY) + delta.y
+      this.startPosition = this.endPosition
+      this.$refs.bar.style.transform = `translate(0px, ${this.translateY}px)`
+      console.log('move')
+    },
+    onMouseUpScrollbar () {
+      this.isScrolling = false
     }
   }
 }

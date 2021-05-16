@@ -209,6 +209,9 @@ export default {
       let {screenX, screenY} = e
       startPosition = {x: screenX, y: screenY}
     })
+    test.addEventListener('selectstart', (e) => {
+      e.preventDefault()
+    })
     document.addEventListener('mousemove', (e) => {
       if (!isMoving) return
       let {screenX, screenY} = e
@@ -217,7 +220,7 @@ export default {
       translateX = parseInt(translateX) + delta.x
       translateY = parseInt(translateY) + delta.y
       startPosition = endPosition
-      test.style.transform = `translate(${0}px, ${translateY}px)`
+      test.style.transform = `translate(0px, ${translateY}px)`
       console.log('move')
     })
     test.addEventListener('mouseup', () => {
