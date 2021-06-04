@@ -1,6 +1,6 @@
 <template>
   <!--  用 CSS 解决 iconPosition 的问题 -->
-  <button class="x-button xujinjun2"
+  <button class="x-button"
           :class="{[`icon-${iconPosition}`]: true}"
           @click="$emit('click')"
   >
@@ -21,7 +21,9 @@ export default {
     'x-icon': Icon
   },
   props: {
-    icon: {},
+    icon: {
+      type: String,
+    },
     iconPosition: {
       type: String,
       default: 'left',
