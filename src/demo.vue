@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-button @click="onClick" icon="loading" loading>按钮</x-button>
+    <x-button @click="onClick" icon="loading" icon-position="right" loading>按钮</x-button>
   </div>
 </template>
 
