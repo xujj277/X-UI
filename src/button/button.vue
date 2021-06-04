@@ -62,6 +62,8 @@ $focus-danger-red: #ff7875;
   justify-content: center;
   vertical-align: middle;
   cursor: pointer;
+  box-sizing: border-box;
+  white-space: nowrap;
 
   &:hover,
   &:focus {
