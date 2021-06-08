@@ -1,34 +1,41 @@
 <template>
   <div>
-    <x-button @click="onClick" icon="loading" icon-position="right" loading>按钮</x-button>
-    <x-button @click="onClick" theme="primary">按钮</x-button>
-    <x-button @click="onClick" theme="danger">按钮</x-button>
-    <x-button @click="onClick" theme="text">按钮</x-button>
-    <x-button @click="onClick" theme="link">按钮</x-button>
-    <x-button @click="onClick" size="big">按钮</x-button>
-    <x-button @click="onClick" size="small">按钮</x-button>
-    <x-button @click="onClick" disabled>按钮</x-button>
-    <x-button @click="onClick" theme="primary" size="big" disabled>按钮</x-button>
-    <x-button @click="onClick" theme="danger" disabled>按钮</x-button>
-    <x-button @click="onClick" theme="link" disabled>按钮</x-button>
-    <x-button @click="onClick" theme="text" disabled>按钮</x-button>
+    <XButton @click="onClick">show dialog</XButton>
+    <x-dialog :visible.sync="visible"
+              :closeOnClickOverlay="false"
+              :ok="handleOk"
+              :cancel="handleCancel"
+    >
+      <template slot="title">xxx</template>
+      <template slot="content">1111</template>
+    </x-dialog>
   </div>
 </template>
 
 <script>
 import XButton from './button/button'
+import XDialog from './dialog/dialog'
 export default {
   name: 'demo',
   components: {
+    XDialog,
     XButton
   },
   data() {
     return {
+      visible: false
     }
   },
   methods: {
     onClick () {
+      this.visible = true
+    },
+    handleOk () {
       console.log(1)
+      return false
+    },
+    handleCancel () {
+      console.log(0)
     }
   }
 }
