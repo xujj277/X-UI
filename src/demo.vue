@@ -9,9 +9,7 @@
       <template slot="title">xxx</template>
       <template slot="content">1111</template>
     </x-dialog>
-    <XButton @click="
-const { openDialog } = require('./dialog/openDialog') 
-openDialog">show dialog2</XButton>
+    <XButton @click="openDialog">show dialog2</XButton>
     <x-slides :selected.sync="selected">
       <x-slides-item name="1">
         <div class="box">1</div>
@@ -31,18 +29,23 @@ import XButton from './button/button'
 import XDialog from './dialog/dialog'
 import XSlides from './slides/slides'
 import XSlidesItem from './slides/slides-item'
+import dialog from './dialog/openDialog'
+import Vue from 'vue'
+
+Vue.use(dialog)
+
 export default {
   name: 'demo',
   components: {
     XSlides,
     XDialog,
     XButton,
-    XSlidesItem
+    XSlidesItem,
   },
-  data() {
+  data () {
     return {
       visible: false,
-      selected: '2'
+      selected: '2',
     }
   },
   methods: {
@@ -50,13 +53,18 @@ export default {
       this.visible = true
     },
     handleOk () {
-      console.log(1)
       return false
     },
     handleCancel () {
-      console.log(0)
-    }
-  }
+    },
+    openDialog () {
+      this.$dialog('xxx', '111', {
+        visible: true,
+        ok: () => {console.log(1)},
+        cancel: () => {console.log(0)}
+      })
+    },
+  },
 }
 </script>
 
@@ -66,9 +74,11 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
   --font-size: 14px;
 }
+
 body {
   font-size: var(--font-size);
 }

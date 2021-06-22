@@ -13,6 +13,7 @@ export default {
         content,
         propsData: dialogOptions,
         onClose: () => {
+          currentDialog.visible = false
           currentDialog = null
         }
       })  // 新建一个函数
@@ -27,7 +28,7 @@ function createDialog ({Vue, title, content, propsData, onClose}) {
   dialog.$slots.title = [title]
   dialog.$slots.content = [content]
   dialog.$mount()
-  dialog.$on('close', onClose)
+  dialog.$on('update:visible', onClose)
   document.body.appendChild(dialog.$el)
   return dialog
 }
