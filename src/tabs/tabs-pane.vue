@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-pane" :class="classes" v-if="active">
+  <div class="tabs-pane" v-if="active">
     <slot></slot>
   </div>
 </template>
@@ -16,19 +16,12 @@
     props: {
       name: {
         type: String|Number,
-        require: true
-      }
-    },
-    computed: {
-      classes () {
-        return {
-          active: this.active
-        }
+        required: true
       }
     },
     created () {
-      this.eventBus.$on('update:selected', (name) => {
-        this.active = name === this.name;
+      this.eventBus && this.eventBus.$on('update:selected', (name, vm) => {
+        this.active = name === this.name
       })
     }
   }
@@ -37,7 +30,5 @@
 <style lang='scss' scoped>
   .tabs-pane {
     padding: 1em;
-    &.active {
-    }
   }
 </style>

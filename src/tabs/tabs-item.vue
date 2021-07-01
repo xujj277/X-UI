@@ -9,7 +9,7 @@
     name: 'xTabsItem',
     // 爷爷给孙子的 eventBus
     inject: ['eventBus'],
-    data() { // 不需要开发者传值，自身维护
+    data () {
       return {
         active: false
       }
@@ -21,7 +21,7 @@
       },
       name: {
         type: String|Number,
-        require: true
+        required: true
       }
     },
     computed: {
@@ -32,13 +32,8 @@
         }
       }
     },
-    created: function () {
-      this.eventBus && this.eventBus.$on('update:selected', (name) => {
-        this.active = name === this.name;
-      })
-    },
     methods: {
-      onClick() {
+      onClick () {
         if (this.disabled) return
         this.eventBus && this.eventBus.$emit('update:selected', this.name, this)
         this.$emit('click', this)
