@@ -21,7 +21,7 @@
         <div class="box">3</div>
       </x-slides-item>
     </x-slides>
-    <x-tabs :selected.sync="selectedTab" direction="vertical">
+    <x-tabs :selected.sync="selectedTab" @update:selected="xxx">
       <x-tabs-head>
         <template slot="actions">
           <button>设置</button>
@@ -71,10 +71,13 @@ export default {
     return {
       visible: false,
       selected: '2',
-      selectedTab: 'sports'
+      selectedTab: 'sport'
     }
   },
   methods: {
+    xxx (data) {
+      console.log(12213, data)
+    },
     onClick () {
       this.visible = true
     },
