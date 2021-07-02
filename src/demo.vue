@@ -10,18 +10,18 @@
       <template slot="content">1111</template>
     </x-dialog>
     <XButton @click="openDialog">show dialog2</XButton>
-    <x-slides :selected.sync="selected">
-      <x-slides-item name="1">
-        <div class="box">1</div>
-      </x-slides-item>
-      <x-slides-item name="2">
-        <div class="box">2</div>
-      </x-slides-item>
-      <x-slides-item name="3">
-        <div class="box">3</div>
-      </x-slides-item>
-    </x-slides>
-    <x-tabs :selected.sync="selectedTab" @update:selected="xxx">
+<!--    <x-slides :selected.sync="selected">-->
+<!--      <x-slides-item name="1">-->
+<!--        <div class="box">1</div>-->
+<!--      </x-slides-item>-->
+<!--      <x-slides-item name="2">-->
+<!--        <div class="box">2</div>-->
+<!--      </x-slides-item>-->
+<!--      <x-slides-item name="3">-->
+<!--        <div class="box">3</div>-->
+<!--      </x-slides-item>-->
+<!--    </x-slides>-->
+    <x-tabs :selected.sync="selectedTab">
       <x-tabs-head>
         <template slot="actions">
           <button>设置</button>
@@ -75,9 +75,6 @@ export default {
     }
   },
   methods: {
-    xxx (data) {
-      console.log(12213, data)
-    },
     onClick () {
       this.visible = true
     },
