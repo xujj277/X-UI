@@ -7,7 +7,7 @@
         <slot v-if="!enableHtml"></slot>
         <div v-else v-html="$slots.default[0]"></div>
       </div>
-      <div class="line" ref="line"></div>
+      <div class="line" ref="line" v-if="closeButton"></div>
       <span class="close" v-if="closeButton" @click="onClickClose">
         {{closeButton.text}}
       </span>
@@ -22,18 +22,13 @@
       autoClose: {
         type: [Boolean, Number],
         default: 5,
-        validator(value) {
-          return value === false || typeof value === 'number';
+        validator (value) {
+          return value === false || typeof value === 'number'
         }
       },
       closeButton: {
-        type: Object,
-        default () {
-          return {
-            text: '关闭',
-            callback: undefined
-          }
-        }
+        type: [Boolean, Object],
+        default: false
       },
       enableHtml: {
         type: Boolean,
@@ -47,21 +42,20 @@
         }
       }
     },
-    // created () {
-    //   console.log(this.closeButton)
-    // },
     mounted () {
       this.updateStyles()
       this.autoClosed()
     },
     methods: {
       updateStyles () {
-        this.$nextTick(() => {  // 调整 line 的高度
-          this.$refs.line.style.height = `${this.$refs.toast.getBoundingClientRect().height}px`
-        })
+        if (this.closeButton) {
+          this.$nextTick(() => {  // 调整 line 的高度
+            this.$refs.line.style.height = `${this.$refs.toast.getBoundingClientRect().height}px`
+          })
+        }
       },
       autoClosed () {
-        if (this.autoClose) {
+        if (this.autoClose) { 
           setTimeout(() => {
             this.close()
           }, this.autoClose * 1000)
@@ -75,7 +69,7 @@
       onClickClose () {
         this.close()
         if (this.closeButton && typeof this.closeButton.callback === 'function') {
-          this.closeButton.callback(this) // this 就是 toast 的示例
+          this.closeButton.callback(this)
         }
       }
     },
