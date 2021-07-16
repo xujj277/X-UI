@@ -1,18 +1,14 @@
 <template>
   <div class="popover" ref="popover">
     <!--    阻止冒泡 @click.stop-->
-    <div ref="contentWrapper"
+    <div ref="contentWrapper" 
          class="x-popover-content-wrapper"
+         :class="[`position-${position}`]"
          v-if="visible"
-         :class="[{[`position-${position}`]: true}, popClassName]"
     >
-      <slot name="content"
-            :close="close"
-      ></slot>
+      <slot name="content"></slot>
     </div>
-    <span ref="triggerWrapper"
-          style="display: inline-block"
-    >
+    <span ref="triggerWrapper">
       <slot></slot>
     </span>
   </div>
@@ -22,21 +18,18 @@
   export default {
     name: 'xPopover',
     props: {
-      popClassName: {
-        type: String
-      },
       position: {
         type: String,
         default: 'top',
         validator (value) {
-          return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
+          return ['top', 'bottom', 'left', 'right'].indexOf(value) > -1
         }
       },
       trigger: {
         type: String,
         default: 'click',
         validator (value) {
-          return ['click', 'hover'].indexOf(value) >= 0
+          return ['click', 'hover'].indexOf(value) > -1
         }
       },
       container: {
@@ -46,22 +39,6 @@
     data () {
       return {
         visible: false
-      }
-    },
-    computed: {
-      openEvent () {
-        if (this.trigger === 'click') {
-          return 'click'
-        } else {
-          return 'mouseenter'
-        }
-      },
-      closeEvent () {
-        if (this.trigger === 'click') {
-          return 'click'
-        } else {
-          return 'mouseleave'
-        }
       }
     },
     mounted() {
@@ -85,39 +62,43 @@
        * 定位 popover 位置
        */
       positionContent () {
-        const {contentWrapper, triggerWrapper} = this.$refs;
+        const {triggerWrapper, contentWrapper} = this.$refs;
         (this.container || document.body).appendChild(contentWrapper)
-        const { width, height, top, left } = triggerWrapper.getBoundingClientRect()
+        const {width, height, left, top} = triggerWrapper.getBoundingClientRect()
         const {height: height2} = contentWrapper.getBoundingClientRect()
-        let positions = { // 表驱动编程优化
+        const positions = {
           top: {
             top: top + window.scrollY,
-            left: left + window.scrollX,
+            left: left + window.scrollX
           },
           bottom: {
-            top: top + height + window.scrollY ,
-            left: left + window.scrollX,
+            top: top + window.scrollY + height,
+            left: left + window.scrollX
           },
           left: {
             top: top + window.scrollY + (height - height2) / 2,
-            left: left + window.scrollX,
+            left: left + window.scrollX
           },
           right: {
             top: top + window.scrollY + (height - height2) / 2,
-            left: left + window.scrollX + width,
-          },
+            left: left + window.scrollX + width
+          }
         }
         contentWrapper.style.left = positions[this.position].left + 'px'
         contentWrapper.style.top = positions[this.position].top + 'px'
       },
-      onClickDocument (e) {
-        if (this.$refs.popover &&
-          (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))
-        ) { return }
-        if (this.$refs.contentWrapper &&
-          (this.$refs.contentWrapper === e.target || this.$refs.contentWrapper.contains(e.target))
-        ) { return }
-        this.close()
+      /**
+       * 看点击的是不是按钮部分
+       * @param event
+       */
+      onClick(event) {
+        if (this.$refs.triggerWrapper.contains(event.target)) {
+          if (this.visible) {
+            this.close()
+          } else {
+            this.open()
+          }
+        }
       },
       open () {
         this.visible = true
@@ -132,18 +113,10 @@
         this.$emit('close')
         document.removeEventListener('click', this.onClickDocument)
       },
-      /**
-       * 看点击的是不是按钮部分
-       * @param event
-       */
-      onClick (event) {
-        if (this.$refs.triggerWrapper.contains(event.target)) {
-          if (this.visible === true) {
-            this.close()
-          } else {
-            this.open()
-          }
-        }
+      onClickDocument (e) {
+        if (this.$refs.popover && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) return
+        if (this.$refs.contentWrapper && (this.$refs.contentWrapper === e.target || this.$refs.contentWrapper.contains(e.target))) return
+        this.close()
       }
     }
   }

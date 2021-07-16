@@ -28,6 +28,10 @@
     </x-tabs>
     <x-input :value="value" @change="onChange1" :error="xx" placeholder="12213123"></x-input>
     <xToast v-if="isToastVisible" enable-html><ul>asdf</ul></xToast>
+    <xPopover trigger="hover" position="bottom">
+      <template slot="content">sadfadf</template>
+      <template>ddd</template>
+    </xPopover>
   </div>
 </template>
 
@@ -44,6 +48,7 @@ import xTabsItem from './tabs/tabs-item'
 import xTabsPane from './tabs/tabs-pane'
 import xInput from './input'
 import xToast from './toast'
+import xPopover from './popover'
 import Vue from 'vue'
 import plugin from './plugin'
 Vue.use(plugin)
@@ -63,6 +68,7 @@ export default {
     xTabsItem,
     xTabsPane,
     xInput,
+    xPopover,
     xToast
   },
   data () {
