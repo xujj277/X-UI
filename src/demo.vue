@@ -28,10 +28,14 @@
     </x-tabs>
     <x-input :value="value" @change="onChange1" :error="xx" placeholder="12213123"></x-input>
     <xToast v-if="isToastVisible" enable-html><ul>asdf</ul></xToast>
-    <xPopover trigger="hover" position="bottom">
+    <xPopover trigger="click" position="bottom">
       <template slot="content">sadfadf</template>
-      <template>ddd</template>
+      <template><XButton>123123</XButton></template>
     </xPopover>
+    <x-collapse :selected.sync="collapseArray">
+      <x-collapse-item title="1" name="1">123</x-collapse-item>
+      <x-collapse-item title="2" name="2">123124</x-collapse-item>
+    </x-collapse>
   </div>
 </template>
 
@@ -49,6 +53,8 @@ import xTabsPane from './tabs/tabs-pane'
 import xInput from './input'
 import xToast from './toast'
 import xPopover from './popover'
+import xCollapse from './collapse/collapse'
+import xCollapseItem from './collapse/collapse-item'
 import Vue from 'vue'
 import plugin from './plugin'
 Vue.use(plugin)
@@ -69,6 +75,8 @@ export default {
     xTabsPane,
     xInput,
     xPopover,
+    xCollapse,
+    xCollapseItem,
     xToast
   },
   data () {
@@ -78,7 +86,8 @@ export default {
       selectedTab: 'sport',
       xx: '',
       value: '',
-      isToastVisible: false
+      isToastVisible: false,
+      collapseArray: ['2', '1']
     }
   },
   methods: {

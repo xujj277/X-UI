@@ -30,7 +30,7 @@
     },
     mounted () {
       this.eventBus.$emit('update:selected', this.selected)
-
+      
       this.eventBus.$on('update:addSelected', (name) => {
         let selectedCopy = JSON.parse(JSON.stringify(this.selected))
         if (this.single) {

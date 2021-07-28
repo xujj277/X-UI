@@ -31,7 +31,7 @@
     mounted () {
       // 单向数据流
       this.eventBus && this.eventBus.$on('update:selected', (names) => {
-        if (names.indexOf(this.name) >= 0) {
+        if (names.indexOf(this.name) > -1) { 
           this.open = true
         } else {
           this.open = false
@@ -39,7 +39,7 @@
       })
     },
     methods: {
-      toggle() {
+      toggle () {
         if (this.open) {
           this.eventBus && this.eventBus.$emit('update:removeSelected', this.name)
         } else {
